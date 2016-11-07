@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "^2.1.2",
-    "@ngtools/webpack": "^1.1.4",
+    "@ngtools/webpack": "^1.1.5",
     "@types/core-js": "^0.9.34",
     "@types/html-webpack-plugin": "^2.22.3",
     "@types/jasmine": "^2.5.35",

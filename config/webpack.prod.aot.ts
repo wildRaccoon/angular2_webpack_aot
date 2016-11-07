@@ -14,7 +14,7 @@ var cfg:webpack.Configuration = merge(
             loaders:[
                 {
                     test: /\.ts$/,
-                    loaders: ['@ngtools/webpack','angular2-router-loader'], 
+                    loaders: ['@ngtools/webpack'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 }
             ]
