@@ -11,7 +11,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "typeRoots": [
       "node_modules/@types"
-    ]
+    ],
+    "outDir": ".compiled"
   },
   "include": [
      "src/**/*.ts"
@@ -20,6 +21,11 @@
     "node_modules",
     ".vscode",
     ".aot",
-    "dist"
-  ]  
+    "dist",
+    ".compiled"
+  ],
+  "angularCompilerOptions": {
+    "genDir": ".aot",
+    "skipMetadataEmit" : true
+ }
 }

@@ -11,12 +11,14 @@
     "suppressImplicitAnyIndexErrors": true,
     "typeRoots": [
       "node_modules/@types"
-    ]    
+    ],
+    "outDir": ".compiled"    
   },
   "exclude": [
     "node_modules",
     ".vscode",
     ".aot",
-    "dist"
+    "dist",
+    ".compiled"
   ]  
 }

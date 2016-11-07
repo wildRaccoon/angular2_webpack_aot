@@ -13,9 +13,10 @@ var cfg:webpack.Configuration = merge(
             loaders:[
                 {
                     test: /\.ts$/,
-                    loaders: ['awesome-typescript-loader', 'angular2-template-loader'], 
+                    loaders: ['awesome-typescript-loader', 'angular2-template-loader','angular2-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
-                }]
+                }
+            ]
         },
         
         output:{

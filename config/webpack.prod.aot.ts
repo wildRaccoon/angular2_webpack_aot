@@ -11,11 +11,13 @@ var cfg:webpack.Configuration = merge(
         devtool: 'cheap-module-eval-source-map',
 
         module:{
-                loaders:[{
+            loaders:[
+                {
                     test: /\.ts$/,
-                    loaders: ['@ngtools/webpack'], 
+                    loaders: ['@ngtools/webpack','angular2-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
-                }]
+                }
+            ]
         },
         
         output:{
@@ -33,10 +35,8 @@ var cfg:webpack.Configuration = merge(
 
         plugins: [
             new AotPlugin({
-                //basePath:root('dist'),
-                tsConfigPath: './tsconfig.aot.json',
+                tsConfigPath: './tsconfig.json',
                 entryModule: 'src/app/app.module#AppModule',
-                //genDir:".aot",
                 mainPath: 'src/main.ts'
             }),
             new ExtractTextPlugin('[name].css')

@@ -69,3 +69,5 @@ _temp
 
 .aot
 dist
+node_modules
+.compiled
