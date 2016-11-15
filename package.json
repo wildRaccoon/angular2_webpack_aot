@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "A webpack starter for Angular",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "start:dev": "webpack-dev-server --config config/webpack.dev.ts --progress --port 8080",
+    "build:dev": "rimraf dist && webpack --config config/webpack.dev.ts --progress",
+    "start:aot": "webpack-dev-server --config config/webpack.prod.aot.ts --progress --port 8080",
+    "build:aot": "rimraf dist && webpack --config config/webpack.prod.aot.ts --progress"
   },
   "licenses": [
     {
@@ -50,11 +52,13 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
     "live-server": "^1.1.0",
+    "node-sass": "^3.12.5",
     "null-loader": "^0.1.1",
     "path": "^0.12.7",
     "phantomjs-prebuilt": "^2.1.7",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
+    "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "ts-loader": "^1.0.0",
     "ts-node": "^1.6.1",

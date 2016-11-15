@@ -6,7 +6,19 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var common: webpack.Configuration = {
     entry:{
         'polyfills': './src/polyfills.ts',
-        'vendor': './src/vendor.ts',
+        'vendor': [
+            '@angular/common',
+            '@angular/compiler',
+            '@angular/core',
+            '@angular/forms',
+            '@angular/http',
+            '@angular/platform-browser',
+            '@angular/platform-browser-dynamic',
+            '@angular/router',
+            '@angular/upgrade',
+            'rxjs',
+            'zone.js'
+        ],
         'app': './src/main.ts'
     },
 
@@ -25,17 +37,17 @@ var common: webpack.Configuration = {
                 loader: 'file?name=assets/[name].[hash].[ext]'
             },
             {
-                test: /\.css$/,
+                test: /\.scss$/,
+                include: root('src', 'app'),
+                loaders: [ 'raw', 'sass' ]
+            },
+            {
+                test: /\.scss$/,
                 exclude: root('src', 'app'),
                 loader: ExtractTextPlugin.extract({
                         fallbackLoader: "style-loader",
-                        loader: "css-loader"
+                        loader: "css!sass"
                     })
-            },
-            {
-                test: /\.css$/,
-                include: root('src', 'app'),
-                loader: 'raw'
             },
             {
                 test: /\.png$/,
