@@ -4,9 +4,9 @@
   "description": "A webpack starter for Angular",
   "scripts": {
     "test": "karma start",
-    "start:dev": "webpack-dev-server --config config/webpack.dev.ts --progress --port 8080",
+    "start:dev": "webpack-dev-server --config config/webpack.dev.ts --progress",
     "build:dev": "rimraf dist && webpack --config config/webpack.dev.ts --progress",
-    "start:aot": "webpack-dev-server --config config/webpack.prod.aot.ts --progress --port 8080",
+    "start:aot": "webpack-dev-server --config config/webpack.prod.aot.ts --progress",
     "build:aot": "rimraf dist && webpack --config config/webpack.prod.aot.ts --progress"
   },
   "licenses": [
@@ -43,6 +43,7 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.8.5",
+    "fs": "0.0.1-security",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.15.0",
     "jasmine-core": "^2.4.1",

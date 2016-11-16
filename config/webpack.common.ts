@@ -2,6 +2,7 @@ import * as webpack from 'webpack';
 import * as htmlWebpackPlugin from 'html-webpack-plugin';
 import { root } from './helper';
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path');
 
 var common: webpack.Configuration = {
     entry:{
@@ -39,14 +40,14 @@ var common: webpack.Configuration = {
             {
                 test: /\.scss$/,
                 include: root('src', 'app'),
-                loaders: [ 'raw', 'sass' ]
+                loaders: [ 'raw', 'sass', 'sass-header' ]
             },
             {
                 test: /\.scss$/,
                 exclude: root('src', 'app'),
                 loader: ExtractTextPlugin.extract({
                         fallbackLoader: "style-loader",
-                        loader: "css!sass"
+                        loader: "css!sass!sass-header"
                     })
             },
             {
@@ -74,7 +75,13 @@ var common: webpack.Configuration = {
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
             __dirname
         ),
-    ]
+    ],
+
+    resolveLoader: {
+        alias: {
+            "sass-header": path.join(__dirname, "loaders/sass-header-loader.ts")
+        }
+    }
 };
 
 export { common };
