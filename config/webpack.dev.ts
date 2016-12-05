@@ -1,11 +1,13 @@
 import * as webpack from 'webpack';
-import { common } from './webpack.common';
+import { buildCommon } from './webpack.common';
 import * as merge from 'webpack-merge';
 import { root } from './helper';
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var cfg:webpack.Configuration = merge(
-    common,
+export = function(env:any)
+{
+    var cfg:webpack.Configuration = merge(
+    buildCommon(env),
     {
         devtool: 'cheap-module-eval-source-map',
 
@@ -37,4 +39,5 @@ var cfg:webpack.Configuration = merge(
         ]
     });
 
-export = cfg;
+    return cfg;
+}

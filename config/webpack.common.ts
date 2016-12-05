@@ -1,6 +1,7 @@
 import * as webpack from 'webpack';
 import * as htmlWebpackPlugin from 'html-webpack-plugin';
 import { root } from './helper';
+import { SetEnv } from './loaders/shared_data';
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 
@@ -84,4 +85,8 @@ var common: webpack.Configuration = {
     }
 };
 
-export { common };
+export function buildCommon(env:any) 
+{  
+    SetEnv(env);
+    return common; 
+};
