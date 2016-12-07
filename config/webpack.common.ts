@@ -4,6 +4,7 @@ import { root } from './helper';
 import { SetEnv } from './loaders/shared_data';
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
+var options = require('./options.json');
 
 var common: webpack.Configuration = {
     entry:{
@@ -60,6 +61,11 @@ var common: webpack.Configuration = {
     },
 
     plugins:[
+
+        new webpack.DefinePlugin({
+            __WEBPACK_VERSION__: JSON.stringify(options)
+        }),
+
         new webpack.optimize.CommonsChunkPlugin({
             name:[
                 'app',
@@ -75,7 +81,7 @@ var common: webpack.Configuration = {
         new webpack.ContextReplacementPlugin(
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
             __dirname
-        ),
+        )
     ],
 
     resolveLoader: {
