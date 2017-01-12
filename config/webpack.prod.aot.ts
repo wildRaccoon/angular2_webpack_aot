@@ -37,9 +37,9 @@ export = function(env:any)
 
             plugins: [
                 new AotPlugin({
-                    tsConfigPath: './tsconfig.json',
-                    entryModule: 'src/app/app.module#AppModule',
-                    mainPath: 'src/main.ts'
+                    tsConfigPath: root('tsconfig.aot.json'),
+                    entryModule: root('src/app/app.module#AppModule'),
+                    mainPath: root('src/main.ts')
                 }),
                 new ExtractTextPlugin('[name].css')
             ]
