@@ -2,7 +2,7 @@ import * as webpack from 'webpack';
 import { buildCommon } from './webpack.common';
 import * as merge from 'webpack-merge';
 import { root } from './helper';
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export = function(env:any)
 {
@@ -15,7 +15,7 @@ export = function(env:any)
             loaders:[
                 {
                     test: /\.ts$/,
-                    loaders: ['awesome-typescript-loader', 'angular2-template-loader','angular2-router-loader'], 
+                    use: ['awesome-typescript-loader', 'angular2-template-loader','angular2-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 }
             ]
@@ -38,6 +38,6 @@ export = function(env:any)
             new ExtractTextPlugin('[name].css')
         ]
     });
-
+    
     return cfg;
 }

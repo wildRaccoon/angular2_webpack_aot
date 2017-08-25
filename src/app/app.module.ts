@@ -9,7 +9,7 @@ import { HomeComponent } from './sync/home.component';
 export const routeConfig:Routes = [
     {
         path: "",
-        component:HomeComponent
+        component: HomeComponent
     },
     {
         path:"lazy",

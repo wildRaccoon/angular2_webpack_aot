@@ -2,7 +2,9 @@ import * as webpack from 'webpack';
 import * as htmlWebpackPlugin from 'html-webpack-plugin';
 import { root } from './helper';
 import { SetEnv } from './loaders/shared_data';
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
+
+//var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var options = require('./options.json');
 
@@ -26,36 +28,36 @@ var common: webpack.Configuration = {
     },
 
     resolve: {
-        extensions: ['', '.ts', '.js']
+        extensions: ['.scss', '.ts', '.js']
     },
 
     module:{
         loaders:[
             {
                 test: /\.html$/,
-                loader: 'html'
+                use: 'html-loader'
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-                loader: 'file?name=assets/[name].[hash].[ext]'
+                use: 'file-loader?name=assets/[name].[hash].[ext]'
             },
             {
                 test: /\.scss$/,
                 include: root('src', 'app'),
-                loaders: [ 'raw', 'sass', 'sass-header' ]
+                use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
             },
             {
                 test: /\.scss$/,
                 exclude: root('src', 'app'),
-                loader: ExtractTextPlugin.extract({
-                        fallbackLoader: "style-loader",
-                        loader: "css!sass!sass-header"
+                use: ExtractTextPlugin.extract({
+                        fallback: "style-loader",
+                        use: [ "css-loader", "sass-loader", "sass-header" ]
                     })
             },
             {
                 test: /\.png$/,
                 include: root('src', 'app'),
-                loader: 'raw'
+                use: 'raw-loader'
             }
         ]
     },
@@ -67,7 +69,8 @@ var common: webpack.Configuration = {
         }),
 
         new webpack.optimize.CommonsChunkPlugin({
-            name:[
+
+            names:[
                 'app',
                 'vendor',
                 'polyfills'
@@ -79,7 +82,7 @@ var common: webpack.Configuration = {
         }),
 
         new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+            /angular(\\|\/)core(\\|\/)@angular/,
             __dirname
         )
     ],
