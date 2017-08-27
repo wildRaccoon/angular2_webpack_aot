@@ -9,4 +9,6 @@ if (process.env.ENV === 'production') {
 declare var __WEBPACK_VERSION__:any;
 console.log(__WEBPACK_VERSION__);
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch(err => console.log(err));

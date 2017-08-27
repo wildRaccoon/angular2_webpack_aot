@@ -4,12 +4,13 @@
     "lib": ["es2017", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "declaration": false,
+    "noImplicitAny": false,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": true,
+    "noLib": false,
     "typeRoots": [
       "node_modules/@types"
     ],
