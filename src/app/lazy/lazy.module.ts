@@ -18,7 +18,6 @@ export const routeConfig:Routes = [
   ],
   declarations: [
     LazyComponent
-  ],
-  providers: []
+  ]
 })
 export class LazyModule { }

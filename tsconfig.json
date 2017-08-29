@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["es2017", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "declaration": false,
-    "noImplicitAny": false,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": true,
-    "noLib": false,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "typeRoots": [
-      "node_modules/@types"
+      "./node_modules/@types/"
     ],
     "outDir": ".compiled"
   },
@@ -22,5 +24,10 @@
     ".aot",
     "dist",
     ".compiled"
-  ]  
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useWebpackText": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false
 }
