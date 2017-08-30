@@ -1,101 +1,105 @@
-import * as webpack from 'webpack';
-import * as htmlWebpackPlugin from 'html-webpack-plugin';
-import { root } from './helper';
-import { SetEnv } from './loaders/shared_data';
-import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
+import { Configuration, loader, optimize } from 'webpack';
+import { resolve, join } from 'path';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 
-//var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
-var options = require('./options.json');
+function root(...args:string[]):string 
+{
+    var _root = resolve(__dirname, '..');
+    return join(...[_root].concat(args));
+}
 
-var common: webpack.Configuration = {
-    entry:{
-        'polyfills': './src/polyfills.ts',
-        'vendor': [
-            '@angular/common',
-            '@angular/compiler',
-            '@angular/core',
-            '@angular/forms',
-            '@angular/http',
-            '@angular/platform-browser',
-            '@angular/platform-browser-dynamic',
-            '@angular/router',
-            '@angular/upgrade',
-            'rxjs',
-            'zone.js'
-        ],
-        'app': './src/main.ts'
-    },
+export = function(env:any): Configuration
+{
+    var common: Configuration = 
+    {
+        entry:{
+            'vendor': [
+                '@angular/common',
+                '@angular/compiler',
+                '@angular/core',
+                '@angular/forms',
+                '@angular/http',
+                '@angular/platform-browser',
+                '@angular/platform-browser-dynamic',
+                '@angular/router',
+                '@angular/upgrade',
+                'rxjs',
+                'zone.js'
+            ],
+            'app' : './src/main.ts',
+            'polyfills' : './src/polyfills.ts'
+        },
 
-    resolve: {
-        extensions: ['.scss', '.ts', '.js']
-    },
+        resolve:{
+            extensions: [".js", ".ts"]
+        },
 
-    module:{
-        loaders:[
-            {
-                test: /\.html$/,
-                use: 'html-loader'
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-                use: 'file-loader?name=assets/[name].[hash].[ext]'
-            },
-            {
-                test: /\.scss$/,
-                include: root('src', 'app'),
-                use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
-            },
-            {
-                test: /\.scss$/,
-                exclude: root('src', 'app'),
-                use: ExtractTextPlugin.extract({
-                        fallback: "style-loader",
-                        use: [ "css-loader", "sass-loader", "sass-header" ]
-                    })
-            },
-            {
-                test: /\.png$/,
-                include: root('src', 'app'),
-                use: 'raw-loader'
-            }
-        ]
-    },
+        module:{
+            loaders:[
+                {
+                    test: /\.html$/,
+                    use: 'html-loader'
+                },
 
-    plugins:[
+                {
+                    test: /\.ts$/,
+                    use: ['awesome-typescript-loader','angular2-template-loader', 'angular-router-loader'], 
+                    exclude: [/\.(spec|e2e|d)\.ts$/]
+                },
 
-        new webpack.DefinePlugin({
-            __WEBPACK_VERSION__: JSON.stringify(options)
-        }),
+                {
+                    test: /\.scss$/,
+                    use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
+                },
 
-        new webpack.optimize.CommonsChunkPlugin({
+                {
+                    test: /\.png$/,
+                    include: root('src', 'app'),
+                    use: 'raw-loader'
+                },
 
-            names:[
-                'app',
-                'vendor',
-                'polyfills'
+                {
+                    test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                    use: 'file-loader?name=assets/[name].[hash].[ext]'
+                }
             ]
-        }),
+        },
 
-        new htmlWebpackPlugin({
-            template: 'src/index.html'
-        }),
+        output:{
+            path: root('dist'),
+            publicPath: 'http://localhost:8080/',
+            filename: '[name].js',
+            chunkFilename: '[id].chunk.js'
+        },
 
-        new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)@angular/,
-            __dirname
-        )
-    ],
+        devServer: {
+            historyApiFallback: true,
+            stats: 'minimal',
+            contentBase: root('dist')
+        },
 
-    resolveLoader: {
-        alias: {
-            "sass-header": path.join(__dirname, "loaders/sass-header-loader.ts")
+        plugins:[
+            new HtmlWebpackPlugin({
+                template: 'src/index.html'
+            }),
+
+            new optimize.CommonsChunkPlugin({
+                names:[
+                    'app',
+                    'vendor',
+                    'polyfills'
+                ]
+            }),
+
+            new optimize.DedupePlugin()
+        ],
+
+        resolveLoader: {
+            alias: {
+                "sass-header": join(__dirname, "loaders/sass-header-loader.ts")
+            }
         }
-    }
-};
+    };
 
-export function buildCommon(env:any) 
-{  
-    SetEnv(env);
-    return common; 
+    return common;
 };

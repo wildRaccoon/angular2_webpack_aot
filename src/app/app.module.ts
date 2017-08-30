@@ -4,6 +4,7 @@ import { HomeComponent } from './sync/home.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { RouterModule, Routes } from "@angular/router";
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 export const routeConfig:Routes = [
     {
@@ -26,6 +27,12 @@ export const routeConfig:Routes = [
     HomeComponent
   ],
 
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+
+  providers:    [
+    {
+        provide: LocationStrategy, useClass: HashLocationStrategy
+    }
+  ]
 })
 export class AppModule { }

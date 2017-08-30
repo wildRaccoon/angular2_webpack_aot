@@ -1,4 +1,3 @@
-import { GetEnv } from './shared_data';
 var path = require('path');
 var header:string = path.join(process.cwd(),'src/css/theme.scss');
 var fs = require('fs');

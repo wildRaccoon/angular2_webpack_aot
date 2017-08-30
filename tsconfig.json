@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "lib": [
-      "es2015",
+      "es2017",
       "dom"
     ],
     "typeRoots": [
@@ -26,7 +26,8 @@
     ".compiled"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "useWebpackText": true
+    "useWebpackText": true,
+    "silent":true
   },
   "compileOnSave": false,
   "buildOnSave": false
