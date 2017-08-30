@@ -89,9 +89,7 @@ export = function(env:any): Configuration
                     'vendor',
                     'polyfills'
                 ]
-            }),
-
-            new optimize.DedupePlugin()
+            })
         ],
 
         resolveLoader: {
