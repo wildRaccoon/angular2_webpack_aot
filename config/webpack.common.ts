@@ -1,6 +1,7 @@
 import { Configuration, loader, optimize } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+var uglifyjs = require('uglifyjs-webpack-plugin');
 
 function root(...args:string[]):string 
 {
@@ -89,7 +90,9 @@ export = function(env:any): Configuration
                     'vendor',
                     'polyfills'
                 ]
-            })
+            }),
+
+            new uglifyjs()
         ],
 
         resolveLoader: {
