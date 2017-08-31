@@ -25,7 +25,9 @@ export = function(env:any): Configuration
                 '@angular/router',
                 '@angular/upgrade',
                 'rxjs',
-                'zone.js'
+                'zone.js',
+                root('bundle/deps_lib.js'),
+                root('bundle/diffusion.js')
             ],
             'app' : './src/main.ts',
             'polyfills' : './src/polyfills.ts'
@@ -62,6 +64,10 @@ export = function(env:any): Configuration
                 {
                     test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                     use: 'file-loader?name=assets/[name].[hash].[ext]'
+                },
+                {
+                    test: /deps_lib.js|diffusion.js/,
+                    use: 'script-loader'
                 }
             ]
         },
