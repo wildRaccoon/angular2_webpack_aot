@@ -1,4 +1,4 @@
-dist/@a_package#bash
+#bash
 rm -rfv dist/@a_package
 rm -rfv node_modules/@a_package
 
