@@ -4,7 +4,7 @@
   "description": "aaaa",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/webpack --config ./config/webpack.common.ts --progress"
   },
   "author": "aaaa",
   "license": "ISC",

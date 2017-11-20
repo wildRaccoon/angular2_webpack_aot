@@ -26,8 +26,8 @@ export = function(env:any): Configuration
                 '@angular/upgrade',
                 'rxjs',
                 'zone.js',
-                root('bundle/deps_lib.js'),
-                root('bundle/diffusion.js')
+                //root('bundle/deps_lib.js'),
+                //root('bundle/diffusion.js')
             ],
             'app' : './src/main.ts',
             'polyfills' : './src/polyfills.ts'
