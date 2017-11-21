@@ -6,7 +6,7 @@ rm -rfv node_modules/@a_package
 
 cd ./src/@a_package
 ls
-../../node_modules/.bin/tsc
+../../node_modules/.bin/tsc 
 cd ../../
 
 

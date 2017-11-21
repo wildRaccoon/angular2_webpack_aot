@@ -13,19 +13,20 @@ export = function(env:any): Configuration
     var common: Configuration = 
     {
         entry:{
-            // 'vendor': [
-            //     '@angular/common',
-            //     '@angular/compiler',
-            //     '@angular/core',
-            //     '@angular/forms',
-            //     '@angular/http',
-            //     '@angular/platform-browser',
-            //     '@angular/platform-browser-dynamic',
-            //     '@angular/router',
-            //     '@angular/upgrade',
-            //     'rxjs/Rx',
-            //     'zone.js'
-            // ],
+            'vendor': [
+                '@angular/common',
+                '@angular/compiler',
+                '@angular/core',
+                '@angular/forms',
+                '@angular/http',
+                '@angular/platform-browser',
+                '@angular/platform-browser-dynamic',
+                '@angular/router',
+                '@angular/upgrade',
+                'rxjs/Rx',
+                'zone.js',
+                '@a_package'
+            ],
             'index' : './src/@a_package/index.ts'
         },
 
@@ -37,18 +38,18 @@ export = function(env:any): Configuration
             loaders:[
                 {
                     test: /\.html$/,
-                    use: 'ignore-loader'
+                    use: 'raw-loader'
                 },
 
                 {
                     test: /\.ts$/,
-                    use: ['angular2-template-loader'], 
+                    use: ['raw-loader', 'angular2-template-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 },
 
                 {
                     test: /\.scss$/,
-                    use: [ 'ignore-loader' ]
+                    use: [ 'raw-loader' ]
                 }
             ]
         },
@@ -67,12 +68,12 @@ export = function(env:any): Configuration
         },
 
         plugins:[
-            // new optimize.CommonsChunkPlugin({
-            //     names:[
-            //         //'index',
-            //         'vendor'
-            //     ]
-            // })
+            new optimize.CommonsChunkPlugin({
+                names:[
+                    'index',
+                    'vendor'
+                ]
+            })
         ]
     };
 

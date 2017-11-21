@@ -15,7 +15,7 @@
       "dom"
     ],
     "typeRoots": [
-      "./node_modules/@types/"
+      "../../node_modules/@types/"
     ],
     "outDir": "../../dist/@a_package"
   },
