@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "foo"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist/app",
+      "assets": [
+        "images"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "tsconfig": "../tsconfig.json",
+      "prefix": "app",
+      "styles": [
+        "css/styles.scss"
+      ]
+    }
+  ],
+  "defaults": {
+    "styleExt": "scss",
+    "component": {
+    }
+  }
+}
