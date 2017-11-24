@@ -13,6 +13,8 @@ export = function(env:any): Configuration
 {
     var common: Configuration = 
     {
+        devtool: 'eval-source-map',
+
         entry:{
             'vendor': [
                 '@angular/common',
