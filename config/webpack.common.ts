@@ -1,4 +1,4 @@
-import { Configuration, loader, optimize } from 'webpack';
+import { Configuration, loader, optimize, ContextReplacementPlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 var uglifyjs = require('uglifyjs-webpack-plugin');
@@ -8,6 +8,8 @@ function root(...args:string[]):string
     var _root = resolve(__dirname, '..');
     return join(...[_root].concat(args));
 }
+
+const path = require('path');
 
 export = function(env:any): Configuration
 {
@@ -93,7 +95,9 @@ export = function(env:any): Configuration
                     'vendor',
                     'polyfills'
                 ]
-            })//,
+            }),
+
+            new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
 
             //new uglifyjs()
         ],
@@ -106,4 +110,4 @@ export = function(env:any): Configuration
     };
 
     return common;
-};
+};  
