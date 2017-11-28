@@ -16,7 +16,14 @@
     "typeRoots": [
       "./node_modules/@types/"
     ],
-    "outDir": ".compiled"
+    "outDir": ".compiled",
+
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@a_package" : [ "src/@a_package/index.ts" ],
+      "@a_package/*" : [ "src/@a_package/*" ]
+    }
   },
   "exclude": [
     "node_modules",
@@ -30,5 +37,5 @@
     "silent":true
   },
   "compileOnSave": false,
-  "buildOnSave": false
+  "buildOnSave": false  
 }
