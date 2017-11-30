@@ -1,5 +1,6 @@
 import * as vfs from 'vinyl-fs';
 import { replace_template } from './template-loader';
+import { router_template } from './router-loader';
 import { connect } from 'tls';
 import { Buffer } from 'buffer';
 import { removeSync, existsSync } from 'fs-extra';
@@ -54,6 +55,8 @@ function main()
       .pipe(sourcemaps.init())
       
       .pipe(tsProject())
+      
+      .pipe(map(router_template))
       
       .pipe(sourcemaps.write('./'))
       .pipe(vfs.dest(destination))

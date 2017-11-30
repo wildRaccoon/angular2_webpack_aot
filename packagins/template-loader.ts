@@ -47,8 +47,8 @@ export function replace_template(file:File, cb:any) {
   
     if(file.isBuffer())
     { 
-      var newConent = template_loader(String(file.contents));
-      file.contents = new Buffer(newConent);
+      var newContent = template_loader(String(file.contents));
+      file.contents = new Buffer(newContent);
   
       return cb(null, file);
     }
