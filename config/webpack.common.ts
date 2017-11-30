@@ -49,10 +49,9 @@ export = function(env:any): Configuration
 
                 {
                     test: /\.ts$/,
-                    use: ['awesome-typescript-loader','angular2-template-loader', 'angular-router-loader'], 
+                    use: ['ts-loader','angular2-template-loader', 'angular-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 },
-
                 {
                     test: /\.scss$/,
                     use: [ 'raw-loader', 'sass-loader', 'sass-header' ]

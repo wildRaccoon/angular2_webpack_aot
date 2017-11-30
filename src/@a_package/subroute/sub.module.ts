@@ -2,16 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
 
-import { AComponent } from './a_component/a_component';
+import { SubComponent } from './sub_component';
 
 export const routeConfig:Routes = [
     {
         path:"",
-        component:AComponent
-    },
-    {
-      path:"subroute",
-      loadChildren: "./subroute/sub.module#SubModule"
+        component:SubComponent
     }
 ];
 
@@ -21,7 +17,7 @@ export const routeConfig:Routes = [
     RouterModule.forChild(routeConfig)
   ],
   declarations: [
-    AComponent
+    SubComponent
   ]
 })
-export class AModule { }
+export class SubModule { }

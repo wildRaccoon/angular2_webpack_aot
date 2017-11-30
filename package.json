@@ -7,7 +7,7 @@
     "package": "./node_modules/.bin/ts-node ./packagins/build.ts",
     "build": "./node_modules/.bin/webpack --config ./config/webpack.common.ts --progress",
     "dev": "./node_modules/.bin/webpack --config ./config/webpack.dev.ts --progress",
-    "dev.debug": "./node_modules/.bin/webpack --config ./config/webpack.dev.ts --progress",
+    "dev.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.ts --progress",
     "debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.common.ts --progress"
   },
   "author": "aaaa",

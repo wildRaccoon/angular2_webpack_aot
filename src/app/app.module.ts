@@ -6,13 +6,6 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { RouterModule, Routes } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-// export function loadAModule() {
-//   return require('@a_package').AModule;
-// }
-
-import { AComponent } from '@a_package';
-
-
 export const routeConfig:Routes = [
     {
         path: "",
@@ -24,8 +17,7 @@ export const routeConfig:Routes = [
     },
     {
       path: "a_package",
-      component: AComponent      
-      //loadChildren: loadAModule
+      loadChildren:"./external#AModule"
     }
 ];
 
@@ -37,7 +29,6 @@ export const routeConfig:Routes = [
   declarations: [
     AppComponent,
     HomeComponent
-    //,AComponent
   ],
 
   bootstrap: [ 

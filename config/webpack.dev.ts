@@ -76,7 +76,7 @@ export = function(env:any): Configuration
         },
 
         output:{
-            path: root('dist/app'),
+            path: root('dist/dev'),
             publicPath: 'http://localhost:8080/',
             filename: '[name].js',
             chunkFilename: '[id].chunk.js'
@@ -85,7 +85,7 @@ export = function(env:any): Configuration
         devServer: {
             historyApiFallback: true,
             stats: 'minimal',
-            contentBase: root('dist/app')
+            contentBase: root('dist/dev')
         },
 
         plugins:[
