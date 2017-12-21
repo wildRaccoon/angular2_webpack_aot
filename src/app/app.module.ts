@@ -3,8 +3,9 @@ import { HomeComponent } from './sync/home.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes, Router } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { BaseExternalModuleResolver } from "./external/external.resolver";
 
 export const routeConfig:Routes = [
     {
@@ -41,4 +42,14 @@ export const routeConfig:Routes = [
     }
   ]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private externlModule:BaseExternalModuleResolver, private router:Router)
+  {
+    routeConfig.push({
+      path:"partner",
+      loadChildren: () => externlModule.GetModule()
+    });
+
+    router.resetConfig(routeConfig);
+  }
+}
