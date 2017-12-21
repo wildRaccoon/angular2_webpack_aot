@@ -16,7 +16,7 @@ import { PartnerComponent } from 'src/partner/partner.component';
 class ImplementExternamModuleResolver implements BaseExternalModuleResolver
 {
   GetModule() {
-   console.log("Rresolve Partner Class");
+   console.log("Resolve Partner Class");
 
    return PartnerModule;
   }
