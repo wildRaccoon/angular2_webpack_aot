@@ -32,8 +32,7 @@ export = function(env:any): Configuration
                 '@angular/router',
                 '@angular/upgrade',
                 'rxjs',
-                'zone.js',
-                '@a_package'
+                'zone.js'
             ],
             'app' : './src/main.ts',
             'polyfills' : './src/polyfills.ts'
