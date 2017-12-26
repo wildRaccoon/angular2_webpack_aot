@@ -8,13 +8,16 @@
     "partner": "./node_modules/.bin/webpack --config ./config/webpack.common.ts --progress",
     "partner.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.common.ts --progress",
     "dev": "./node_modules/.bin/webpack --config ./config/webpack.dev.ts --progress",
-    "dev.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.ts --progress"
+    "dev.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.ts --progress",
+    "dev.aot": "./node_modules/.bin/webpack --config ./config/webpack.dev.aot.ts --progress",
+    "dev.aot.run": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.aot.ts --progress"
   },
   "author": "aaaa",
   "license": "ISC",
   "devDependencies": {
-    "@angular/cli": "^1.5.3",
+    "@angular/cli": "^1.6.2",
     "@angular/compiler-cli": "^5.0.2",
+    "@ngtools/webpack": "^1.9.2",
     "@types/core-js": "^0.9.43",
     "@types/fs-extra": "^4.0.5",
     "@types/html-webpack-plugin": "^2.30.1",
