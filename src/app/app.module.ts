@@ -39,7 +39,7 @@ export const routeConfig:Routes = [
 
   providers:    [
     {
-        provide: LocationStrategy, useClass: HashLocationStrategy
+        provide: LocationStrategy, useClass: HashLocationStrategy,        
     }
   ]
 })
