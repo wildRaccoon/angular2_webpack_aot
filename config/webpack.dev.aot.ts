@@ -1,4 +1,4 @@
-import { Configuration, loader, optimize, ContextReplacementPlugin } from 'webpack';
+import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AotPlugin } from '@ngtools/webpack';
@@ -41,9 +41,9 @@ export = function(env:any): Configuration
         resolve:{
             extensions: [".js", ".ts"],
 
-            // plugins: [
-            //     new TsConfigPathsPlugin({ configFileName: "./tsconfig.json" })
-            //   ]
+            alias: {
+                "packageName" : root("./src/partner/index.ts" ),
+            }
         },
 
         module:{
@@ -55,7 +55,7 @@ export = function(env:any): Configuration
 
                 {
                     test: /\.ts$/,
-                    use: ['@ngtools/webpack','angular2-template-loader'], 
+                    use: ['@ngtools/webpack','angular-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 },
 
@@ -105,9 +105,17 @@ export = function(env:any): Configuration
 
             new AotPlugin({
                 tsConfigPath: root("tsconfig.json"),
+                hostReplacementPaths: {
+                    "packageName":"./src/partner/index.ts"
+                },
                 //mainPath:root("src"),
                 replaceExport: true,
-                skipCodeGeneration: true
+                skipCodeGeneration: true,                
+            }),
+
+
+            new DefinePlugin({
+                __ADD_PARTNER_ROUTE__:true
             }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),

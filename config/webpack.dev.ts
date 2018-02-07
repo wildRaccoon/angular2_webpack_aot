@@ -1,6 +1,8 @@
 import { Configuration, loader, optimize, ContextReplacementPlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import { WebpackCompilerHost } from '@ngtools/webpack/src/compiler_host';
+import * as webpack from 'webpack';
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
@@ -41,7 +43,12 @@ export = function(env:any): Configuration
 
             plugins: [
                 new TsConfigPathsPlugin({ configFileName: "./tsconfig.json" })
-              ]
+              ],
+
+            alias: {
+                "@a_package" : root("./src/@a_package/index.ts" ),
+                "packageName" : root("./src/partner/index.ts" ),
+            }
         },
 
         module:{
@@ -99,6 +106,10 @@ export = function(env:any): Configuration
                     'vendor',
                     'polyfills'
                 ]
+            }),
+
+            new webpack.DefinePlugin({
+                __ADD_PARTNER_ROUTE__:true
             }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),

@@ -10,7 +10,7 @@
     "dev": "./node_modules/.bin/webpack --config ./config/webpack.dev.ts --progress",
     "dev.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.ts --progress",
     "dev.aot": "./node_modules/.bin/webpack --config ./config/webpack.dev.aot.ts --progress",
-    "dev.aot.run": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.aot.ts --progress"
+    "dev.aot.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.aot.ts --progress"
   },
   "author": "aaaa",
   "license": "ISC",

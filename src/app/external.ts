@@ -1,1 +1,0 @@
-export { AModule } from '@a_package';

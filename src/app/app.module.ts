@@ -5,7 +5,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { RouterModule, Routes, Router } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { BaseExternalModuleResolver } from "./external/external.resolver";
+
+declare var __ADD_PARTNER_ROUTE__:boolean; 
 
 export const routeConfig:Routes = [
     {
@@ -18,7 +19,7 @@ export const routeConfig:Routes = [
     },
     {
       path: "a_package",
-      loadChildren:"./external#AModule"
+      loadChildren:"@a_package#AModule"
     }
 ];
 
@@ -43,13 +44,16 @@ export const routeConfig:Routes = [
   ]
 })
 export class AppModule { 
-  constructor(private externlModule:BaseExternalModuleResolver, private router:Router)
+  constructor(private router:Router)
   {
-    routeConfig.push({
-      path:"partner",
-      loadChildren: () => externlModule.GetModule()
-    });
+    if(__ADD_PARTNER_ROUTE__)
+    {
+      routeConfig.push({
+        path:"partner",
+        loadChildren: "packageName#PartnerModule"
+      });
 
-    router.resetConfig(routeConfig);
+      router.resetConfig(routeConfig);
+    }
   }
 }
