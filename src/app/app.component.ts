@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Renderer2 } from '@angular/core';
 import '../css/styles.scss';
 
 @Component({
@@ -7,4 +7,10 @@ import '../css/styles.scss';
   styleUrls: ['./app.component.scss'],
   //encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent { }
+export class AppComponent { 
+  constructor(private r: Renderer2)
+  {
+    r.addClass(document.documentElement,"chtml");
+    r.removeClass(document.documentElement,"c1");
+  }
+}
