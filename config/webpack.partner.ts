@@ -40,7 +40,7 @@ export = function(env:any): Configuration
             extensions: [".js", ".ts"],
 
             alias: {
-                "packageName" : root("./src/partner/index.ts" ),
+                "packageName" : root("./src/modules/partner/index.ts" ),
             }
         },
 

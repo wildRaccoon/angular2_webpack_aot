@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "package": "./node_modules/.bin/ts-node ./packagins/build.ts",
-    "partner": "./node_modules/.bin/webpack --config ./config/webpack.common.ts --progress",
-    "partner.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.common.ts --progress",
+    "partner": "./node_modules/.bin/webpack --config ./config/webpack.partner.ts --progress",
+    "partner.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.partner.ts --progress",
     "dev": "./node_modules/.bin/webpack --config ./config/webpack.dev.ts --progress",
     "dev.debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.dev.ts --progress",
     "dev.aot": "./node_modules/.bin/webpack --config ./config/webpack.dev.aot.ts --progress",

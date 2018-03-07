@@ -21,8 +21,8 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@a_package" : [ "src/@a_package/index.ts" ],
-      "@a_package/*" : [ "src/@a_package/*" ]
+      "@a_package" : [ "src/modules/package/index.ts" ],
+      "@a_package/*" : [ "src/modules/package/*" ]
     }
   },
   "exclude": [

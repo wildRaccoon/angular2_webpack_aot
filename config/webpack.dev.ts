@@ -46,8 +46,8 @@ export = function(env:any): Configuration
               ],
 
             alias: {
-                "@a_package" : root("./src/@a_package/index.ts" ),
-                "packageName" : root("./src/partner/index.ts" ),
+                "@a_package" : root("./src/modules/package/index.ts" ),
+                "packageName" : root("./src/modules/partner/index.ts" ),
             }
         },
 

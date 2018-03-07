@@ -34,8 +34,8 @@ export = function(env:any): Configuration
               ],
 
             alias: {
-                "@a_package" : root("./src/@a_package/index.ts" ),
-                "packageName" : root("./src/partner/index.ts" ),
+                "@a_package" : root("./src/modules/package/index.ts" ),
+                "packageName" : root("./src/modules/partner/index.ts" ),
             }
         },
 
@@ -85,7 +85,7 @@ export = function(env:any): Configuration
 
         plugins:[
             new HtmlWebpackPlugin({
-                template: 'src/index.html',
+                template: 'src/index.dll.html',
             }),
 
             new optimize.CommonsChunkPlugin({

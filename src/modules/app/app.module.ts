@@ -1,4 +1,4 @@
-import { AppComponent } from './app.component';
+import { AppComponent } from './norm/app.component';
 import { HomeComponent } from './sync/home.component';
 
 import { NgModule } from '@angular/core';

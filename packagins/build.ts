@@ -10,7 +10,7 @@ var map = require('map-stream');
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 
-var packageFolder = "./src/@a_package";
+var packageFolder = "./src/modules/package";
 var packageName = '@a_package';
 
 var destination = './dist/' + packageName;

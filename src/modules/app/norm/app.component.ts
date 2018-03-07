@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, Renderer2 } from '@angular/core';
-import '../css/styles.scss';
+import '../../../assets/css/styles.scss';
 
 @Component({
   selector: 'my-app',

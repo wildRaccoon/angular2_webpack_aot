@@ -1,5 +1,5 @@
 var path = require('path');
-var header:string = path.join(process.cwd(),'src/css/theme.scss');
+var header:string = path.join(process.cwd(),'src/assets/css/theme.scss');
 var fs = require('fs');
  
 function loader(text:any):any {
