@@ -30,7 +30,7 @@ export = function(env:any): Configuration
             extensions: [".js", ".ts"],
 
             plugins: [
-                new TsConfigPathsPlugin({ configFileName: "./tsconfig.json" })
+                new TsConfigPathsPlugin({ configFile: "./tsconfig.json" })
               ],
 
             alias: {
@@ -40,7 +40,7 @@ export = function(env:any): Configuration
         },
 
         module:{
-            loaders:[
+            rules:[
                 {
                     test: /\.html$/,
                     use: 'html-loader'
@@ -88,12 +88,12 @@ export = function(env:any): Configuration
                 template: 'src/index.dll.html',
             }),
 
-            new optimize.CommonsChunkPlugin({
-                names:[
-                    'app',
-                    'polyfills'
-                ]
-            }),
+            // new optimize.CommonsChunkPlugin({
+            //     names:[
+            //         'app',
+            //         'polyfills'
+            //     ]
+            // }),
 
             new webpack.DefinePlugin({
                 __ADD_PARTNER_ROUTE__:true

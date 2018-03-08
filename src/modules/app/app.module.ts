@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { RouterModule, Routes, Router } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { TagDirective } from './app.tag';
 
 declare var __ADD_PARTNER_ROUTE__:boolean; 
 
@@ -30,7 +29,6 @@ export const routeConfig:Routes = [
     RouterModule.forRoot(routeConfig)
   ],
   declarations: [
-    TagDirective, 
     AppComponent,
     HomeComponent
   ],

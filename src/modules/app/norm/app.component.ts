@@ -4,13 +4,7 @@ import '../../../assets/css/styles.scss';
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  //encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent { 
-  constructor(private r: Renderer2)
-  {
-    r.addClass(document.documentElement,"chtml");
-    r.removeClass(document.documentElement,"c1");
-  }
 }

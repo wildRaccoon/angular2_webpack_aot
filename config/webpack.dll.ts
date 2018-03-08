@@ -42,7 +42,7 @@ export = function(env:any): Configuration
           }, 
 
           module:{
-            loaders:[
+            rules:[
                 {
                     test: /\.ts$/,
                     use: ['ts-loader'], 

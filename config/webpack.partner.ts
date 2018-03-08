@@ -45,7 +45,7 @@ export = function(env:any): Configuration
         },
 
         module:{
-            loaders:[
+            rules:[
                 {
                     test: /\.html$/,
                     use: 'html-loader'
@@ -92,13 +92,13 @@ export = function(env:any): Configuration
                 template: 'src/index.html'
             }),
 
-            new optimize.CommonsChunkPlugin({
-                names:[
-                    'app',
-                    'vendor',
-                    'polyfills'
-                ]
-            }),
+            // new optimize.CommonsChunkPlugin({
+            //     names:[
+            //         'app',
+            //         'vendor',
+            //         'polyfills'
+            //     ]
+            // }),
 
             new DefinePlugin({
                 __ADD_PARTNER_ROUTE__:true
