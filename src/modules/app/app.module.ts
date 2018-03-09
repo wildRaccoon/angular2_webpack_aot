@@ -3,7 +3,7 @@ import { HomeComponent } from './sync/home.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { RouterModule, Routes, Router } from "@angular/router";
+import { RouterModule, Routes, Router, Route } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TagDirective } from './app.tag';
 
@@ -54,6 +54,23 @@ export class AppModule {
         path:"partner",
         loadChildren: "packageName#PartnerModule"
       });
+
+      for (var i = 0; i < routeConfig.length; i++) {
+        if(routeConfig[i].path == "")
+        {
+          var item = routeConfig[i];
+          
+          routeConfig[i] = {
+            path:"",
+            loadChildren:"packageName#ReplaceSyncModule"
+          };
+
+          console.log("replaced component");
+          console.log(routeConfig);
+
+          break;
+        }
+      }
 
       router.resetConfig(routeConfig);
     }

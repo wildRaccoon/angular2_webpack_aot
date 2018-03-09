@@ -1,13 +1,13 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PartnerComponent } from "./partner.component";
+import { ReplaceSyncComponent } from "./replacesync/replacesync";
 
 
 const routeConfig:Routes = [
     {
         path: "",
-        component: PartnerComponent
+        component: ReplaceSyncComponent
     }
   ];
 
@@ -18,13 +18,13 @@ const routeConfig:Routes = [
     RouterModule.forChild(routeConfig)
   ],
   declarations: [
-    PartnerComponent
+    ReplaceSyncComponent
   ]
 })
-export class PartnerModule
+export class ReplaceSyncModule
 {
   public ShowName(): void
   {
-      console.log("PartnerModule - loaded.");
+      console.log("ReplaceSyncModule - loaded.");
   }
 }
