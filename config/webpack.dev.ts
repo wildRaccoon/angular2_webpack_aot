@@ -112,8 +112,12 @@ export = function(env:any): Configuration
                 __ADD_PARTNER_ROUTE__:true
             }),
 
+            new webpack.NormalModuleReplacementPlugin(
+                /child\.routes\.ts/,
+                "../partner/replacechild.route.ts"
+            ),
+
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
-            //new uglifyjs()
         ],
 
         resolveLoader: {
