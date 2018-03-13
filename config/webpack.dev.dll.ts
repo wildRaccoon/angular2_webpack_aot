@@ -19,11 +19,12 @@ export = function(env:any): Configuration
 {
     var common: Configuration = 
     {
+        mode:"development",
         devtool: 'eval-source-map',
 
         entry:{
-            'app' : './src/main.ts',
-            'polyfills' : './src/polyfills.ts'
+            'polyfills' : './src/polyfills.ts',
+            'app' : './src/main.ts'            
         },
 
         resolve:{
@@ -70,11 +71,20 @@ export = function(env:any): Configuration
             ]
         },
 
+        optimization:{
+            removeEmptyChunks:true,
+            mergeDuplicateChunks:true,
+            // splitChunks:{
+            //     chunks:"all",
+            //     name:"vendor"
+            // }
+        },
+
         output:{
             path: root('dist/dev'),
             publicPath: 'http://localhost:8080/',
             filename: '[name].js',
-            chunkFilename: '[id].chunk.js'
+            chunkFilename: '[id].js'
         },
 
         devServer: {
@@ -88,12 +98,6 @@ export = function(env:any): Configuration
                 template: 'src/index.dll.html',
             }),
 
-            // new optimize.CommonsChunkPlugin({
-            //     names:[
-            //         'app',
-            //         'polyfills'
-            //     ]
-            // }),
 
             new webpack.DefinePlugin({
                 __ADD_PARTNER_ROUTE__:true
@@ -102,6 +106,7 @@ export = function(env:any): Configuration
             new webpack.DllReferencePlugin({
                 context: '.',
                 manifest: require(root('dist/dll/vendor.json')),
+                name:"vendor"
                 //sourceType: 'commonjs'
               }),
 
