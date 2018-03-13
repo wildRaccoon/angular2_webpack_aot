@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PartnerComponent } from "./partner.component";
+import { PartnerComponent } from "./partnercomponent/partner.component";
 
 
 const routeConfig:Routes = [
