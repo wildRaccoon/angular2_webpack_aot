@@ -45,17 +45,17 @@ export const routeConfig:Routes = [
 })
 export class AppModule { 
   constructor(
-    //private router:Router
+    private router:Router
   )
   {
-    // if(__ADD_PARTNER_ROUTE__)
-    // {
-    //   routeConfig.push({
-    //     path:"partner",
-    //     loadChildren: "packageName#PartnerModule"
-    //   });
+    if(__ADD_PARTNER_ROUTE__)
+    {
+      routeConfig.push({
+        path:"partner",
+        loadChildren: "packageName#PartnerModule"
+      });
 
-    //   router.resetConfig(routeConfig);
-    //}
+      router.resetConfig(routeConfig);
+    }
   }
 }

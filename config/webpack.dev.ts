@@ -1,7 +1,6 @@
 import { Configuration, loader, optimize, ContextReplacementPlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import { WebpackCompilerHost } from '@ngtools/webpack/src/compiler_host';
 import * as webpack from 'webpack';
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
@@ -19,8 +18,10 @@ export = function(env:any): Configuration
     var common: Configuration = 
     {
         devtool: 'eval-source-map',
+        mode:"development",
 
         entry:{
+            'polyfills' : './src/polyfills.ts',
             'vendor': [
                 '@angular/common',
                 '@angular/compiler',
@@ -34,8 +35,7 @@ export = function(env:any): Configuration
                 'rxjs',
                 'zone.js'
             ],
-            'app' : './src/main.ts',
-            'polyfills' : './src/polyfills.ts'
+            'app' : './src/main.ts'
         },
 
         resolve:{
@@ -82,11 +82,20 @@ export = function(env:any): Configuration
             ]
         },
 
+        optimization:{
+            removeEmptyChunks:true,
+            mergeDuplicateChunks:true,
+            splitChunks:{
+                chunks:"all",
+                name:"vendor"
+            }
+        },
+
         output:{
             path: root('dist/dev'),
             publicPath: 'http://localhost:8080/',
             filename: '[name].js',
-            chunkFilename: '[id].chunk.js'
+            chunkFilename: '[id].js'
         },
 
         devServer: {
@@ -100,19 +109,11 @@ export = function(env:any): Configuration
                 template: 'src/index.html'
             }),
 
-            // new optimize.CommonsChunkPlugin({
-            //     names:[
-            //         'app',
-            //         'vendor',
-            //         'polyfills'
-            //     ]
-            // }),
-
             new webpack.DefinePlugin({
                 __ADD_PARTNER_ROUTE__:true
             }),
 
-            new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
+            new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './src')),
             //new uglifyjs()
         ],
 
