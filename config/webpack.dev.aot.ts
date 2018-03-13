@@ -1,7 +1,7 @@
 import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import { AotPlugin } from '@ngtools/webpack';
+import { AngularCompilerPlugin } from '@ngtools/webpack';
 
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
@@ -18,9 +18,12 @@ export = function(env:any): Configuration
 {
     var common: Configuration = 
     {
+        mode:"production",
+
         devtool: 'eval-source-map',
 
         entry:{
+            'polyfills' : './src/polyfills.ts',
             'vendor': [
                 '@angular/common',
                 '@angular/compiler',
@@ -33,9 +36,8 @@ export = function(env:any): Configuration
                 '@angular/upgrade',
                 'rxjs',
                 'zone.js'
-            ],
-            'app' : './src/main.ts',
-            'polyfills' : './src/polyfills.ts'
+            ],            
+            'app' : './src/main.ts'            
         },
 
         resolve:{
@@ -54,8 +56,8 @@ export = function(env:any): Configuration
                 },
 
                 {
-                    test: /\.ts$/,
-                    use: ['@ngtools/webpack','angular-router-loader'], 
+                    test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                    use: ['@ngtools/webpack' ,'angular-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 },
 
@@ -77,11 +79,20 @@ export = function(env:any): Configuration
             ]
         },
 
+        optimization:{
+            removeEmptyChunks:true,
+            mergeDuplicateChunks:true,
+            splitChunks:{
+                chunks:"all",
+                name:"vendor"
+            }
+        },
+
         output:{
             path: root('dist/dev'),
             publicPath: 'http://localhost:8080/',
             filename: '[name].js',
-            chunkFilename: '[id].chunk.js'
+            chunkFilename: '[id].js'
         },
 
         devServer: {
@@ -95,22 +106,20 @@ export = function(env:any): Configuration
                 template: 'src/index.html'
             }),
 
-            // new optimize.CommonsChunkPlugin({
-            //     names:[
-            //         'app',
-            //         'vendor',
-            //         'polyfills'
-            //     ]
-            // }),
-
-            new AotPlugin({
+            new AngularCompilerPlugin({
                 tsConfigPath: root("tsconfig.json"),
                 hostReplacementPaths: {
-                    "packageName":"./src/partner/index.ts"
+                    "packageName":root("src/modules/partner/index.ts")
                 },
                 //mainPath:root("src"),
-                replaceExport: true,
-                skipCodeGeneration: true,                
+                //replaceExport: true,
+                skipCodeGeneration: true,
+                // compilerOptions:{
+                //     paths:{
+                //         "packageName": [ "src/modules/package/index.ts" ],
+                //         "@a_package/*" : [ "src/modules/package/*" ]
+                //     }
+                // }        
             }),
 
 
