@@ -21,6 +21,10 @@ export const routeConfig:Routes = [
     {
       path: "a_package",
       loadChildren:"@a_package#AModule"
+    },
+    {
+      path:"withchild",
+      loadChildren: "../withchildrens/withchildrens.module.ts#WithChildrensModule"
     }
 ];
 
