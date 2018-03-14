@@ -69,8 +69,8 @@ export class AppModule {
             loadChildren:"packageName#ReplaceSyncModule"
           };
 
-          console.log("replaced component");
-          console.log(routeConfig);
+          //console.log("replaced component");
+          //console.log(routeConfig);
 
           break;
         }

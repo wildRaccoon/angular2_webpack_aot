@@ -8,10 +8,10 @@ export const CustomChildRoutes:Routes = [
     },
     {
       path:"ch01",
-      loadChildren:"./partner.module.ts#PartnerModule"
+      loadChildren:"./partner.module#PartnerModule"
     },
     {
       path:"ch02",
-      loadChildren:"./replacesync.module.ts#ReplaceSyncModule"
+      loadChildren:"./replacesync.module#ReplaceSyncModule"
     }
-  ]
+]

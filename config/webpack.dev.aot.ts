@@ -1,4 +1,4 @@
-import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin } from 'webpack';
+import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin, NormalModuleReplacementPlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
@@ -18,7 +18,7 @@ export = function(env:any): Configuration
 {
     var common: Configuration = 
     {
-        mode:"production",
+        mode:"development",
 
         devtool: 'eval-source-map',
 
@@ -56,9 +56,15 @@ export = function(env:any): Configuration
                 },
 
                 {
-                    test: /\.ts$/,
-                    use: ['@ngtools/webpack' ,'angular-router-loader'], 
+                    test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                    use: [ '@ngtools/webpack' ], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
+                },
+
+                {
+                    test: /\.js|\.ts/,
+                    use: [ 'angular-router-loader'], 
+                    include: root('src')
                 },
 
                 {
@@ -68,7 +74,7 @@ export = function(env:any): Configuration
 
                 {
                     test: /\.png$/,
-                    include: root('src', 'app'),
+                    include: root('src','app'),
                     use: 'raw-loader'
                 },
 
@@ -92,7 +98,7 @@ export = function(env:any): Configuration
             path: root('dist/dev'),
             publicPath: 'http://localhost:8080/',
             filename: '[name].js',
-            chunkFilename: '[id].js'
+            chunkFilename: '[name].js'
         },
 
         devServer: {
@@ -109,10 +115,8 @@ export = function(env:any): Configuration
             new AngularCompilerPlugin({
                 tsConfigPath: root("tsconfig.json"),
                 hostReplacementPaths: {
-                    "packageName":root("src/modules/partner/index.ts")
+                //    "src/modules/withchildrens/child.routes.ts":"src/modules/partner/replacechild.route.ts" 
                 },
-                //mainPath:root("src"),
-                //replaceExport: true,
                 skipCodeGeneration: true,
             }),
 
@@ -120,6 +124,11 @@ export = function(env:any): Configuration
             new DefinePlugin({
                 __ADD_PARTNER_ROUTE__:true
             }),
+
+            // new NormalModuleReplacementPlugin(
+            //     /child\.routes(\.ts|\.js)/,
+            //     "../partner/replacechild.route.ts"
+            // ),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client'))
         ],

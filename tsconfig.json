@@ -16,7 +16,6 @@
     "typeRoots": [
       "./node_modules/@types/"
     ],
-    "outDir": ".compiled",
 
     "rootDir": ".",
     "baseUrl": ".",
@@ -32,10 +31,6 @@
     "dist",
     ".compiled"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "useWebpackText": true,
-    "silent":true
-  },
   "compileOnSave": false,
   "buildOnSave": false  
 }
