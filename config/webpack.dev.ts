@@ -4,6 +4,7 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as webpack from 'webpack';
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 function root(...args:string[]):string 
 {
@@ -66,7 +67,13 @@ export = function(env:any): Configuration
 
                 {
                     test: /\.scss$/,
+                    exclude: /styles\.scss$/, 
                     use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
+                },
+
+                { 
+                    test: /styles\.scss$/, 
+                    use: ExtractTextPlugin.extract([ 'raw-loader', 'sass-loader', 'sass-header' ]) 
                 },
 
                 {
@@ -119,7 +126,9 @@ export = function(env:any): Configuration
             ),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './src')),
-            //new uglifyjs()
+            
+            
+            new ExtractTextPlugin("styles.css")
         ],
 
         resolveLoader: {

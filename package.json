@@ -32,6 +32,7 @@
     "awesome-typescript-loader": "^4.0.1",
     "barrelsby": "0.0.8",
     "copy-webpack-plugin": "^4.5.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "fs-extra": "^5.0.0",
     "gulp-sourcemaps": "^2.6.4",
