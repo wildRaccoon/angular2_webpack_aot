@@ -15,9 +15,11 @@ export = function(env:any): Configuration
 {
     var common: Configuration = 
     {
+        mode:"development",
         devtool: 'eval-source-map',
 
         entry:{
+            'polyfills' : './src/polyfills.ts',
             'vendor': [
                 '@angular/common',
                 '@angular/compiler',
@@ -29,11 +31,10 @@ export = function(env:any): Configuration
                 '@angular/router',
                 '@angular/upgrade',
                 'rxjs',
-                'zone.js'//,
-                //'@a_package'
+                'zone.js'
             ],
             'app' : './src/main.ts',
-            'polyfills' : './src/polyfills.ts'
+            
         },
 
         resolve:{
@@ -74,11 +75,20 @@ export = function(env:any): Configuration
             ]
         },
 
+        optimization:{
+            removeEmptyChunks:true,
+            mergeDuplicateChunks:true,
+            splitChunks:{
+                chunks:"all",
+                name:"vendor"
+            }
+        },
+
         output:{
             path: root('dist/app'),
             publicPath: 'http://localhost:8080/',
             filename: '[name].js',
-            chunkFilename: '[id].chunk.js'
+            chunkFilename: '[name].js'
         },
 
         devServer: {
@@ -91,22 +101,11 @@ export = function(env:any): Configuration
             new HtmlWebpackPlugin({
                 template: 'src/index.html'
             }),
-
-            // new optimize.CommonsChunkPlugin({
-            //     names:[
-            //         'app',
-            //         'vendor',
-            //         'polyfills'
-            //     ]
-            // }),
-
             new DefinePlugin({
                 __ADD_PARTNER_ROUTE__:true
             }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
-
-            //new uglifyjs()
         ],
 
         resolveLoader: {
