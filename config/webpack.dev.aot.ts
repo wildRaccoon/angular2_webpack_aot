@@ -56,7 +56,7 @@ export = function(env:any): Configuration
                 },
 
                 {
-                    test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                    test: /\.ts$/,
                     use: ['@ngtools/webpack' ,'angular-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 },
@@ -114,12 +114,6 @@ export = function(env:any): Configuration
                 //mainPath:root("src"),
                 //replaceExport: true,
                 skipCodeGeneration: true,
-                // compilerOptions:{
-                //     paths:{
-                //         "packageName": [ "src/modules/package/index.ts" ],
-                //         "@a_package/*" : [ "src/modules/package/*" ]
-                //     }
-                // }        
             }),
 
 
@@ -127,8 +121,7 @@ export = function(env:any): Configuration
                 __ADD_PARTNER_ROUTE__:true
             }),
 
-            new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
-            //new uglifyjs()
+            new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client'))
         ],
 
         resolveLoader: {
