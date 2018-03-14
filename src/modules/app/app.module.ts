@@ -23,7 +23,7 @@ export const routeConfig:Routes = [
     },
     {
       path:"withchild",
-      loadChildren: "../withchildrens/withchildrens.module.ts#WithChildrensModule"
+      loadChildren: "../withchildrens/withchildrens.module#WithChildrensModule"
     }
 ];
 
