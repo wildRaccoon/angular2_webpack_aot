@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="showPartnerOutlet">
+    <router-outlet></router-outlet>
+</div>
+<div *ngIf="!showPartnerOutlet">
   <h2>Hello from CONTAINER</h2>
   <ul>
       <li>

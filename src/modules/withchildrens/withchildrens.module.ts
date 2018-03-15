@@ -3,7 +3,7 @@ import { RouterModule, Routes  } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { Child01Component } from "./child01/child01.component"
 import { Child02Component } from "./child02/child02.component"
-import { CustomChildRoutes } from "./child.routes"
+import { CustomChildRoutes,CustomOutletRoutes } from "./child.routes"
 
 import { ContainerComponent } from "./container/container"
 
@@ -11,8 +11,8 @@ export const routeConfig:Routes = [
   {
     path: "",
     component: ContainerComponent,
-    children: CustomChildRoutes.length > 0 ? 
-      CustomChildRoutes : 
+    children: CustomOutletRoutes.length > 0 ? 
+      CustomOutletRoutes : 
       [
         {
           path:"",
@@ -28,8 +28,11 @@ export const routeConfig:Routes = [
           component: Child02Component
         }
       ]
-  }
+  },
+  //...CustomOutletRoutes
 ];
+
+console.log(routeConfig);
 
 @NgModule({
   imports: [
@@ -43,4 +46,7 @@ export const routeConfig:Routes = [
   ]
 })
 export class WithChildrensModule { 
+  constructor(){
+    //console.log(CustomOutletRoutes);
+  }
 }

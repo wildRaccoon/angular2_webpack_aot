@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ShowPartnerOutlet } from "../child.routes"
 
 @Component({
   selector: 'my-container',
@@ -6,4 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./container.scss']
 })
 export class ContainerComponent {
+  public showPartnerOutlet:boolean = ShowPartnerOutlet
 }
