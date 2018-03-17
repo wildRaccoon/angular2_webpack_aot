@@ -21,7 +21,9 @@
     "baseUrl": ".",
     "paths": {
       "@a_package" : [ "src/modules/package/index.ts" ],
-      "@a_package/*" : [ "src/modules/package/*" ]
+      "@a_package/*" : [ "src/modules/package/*" ],
+      "@bingo/config" : [ "src/config/config.ts" ],
+      "@bingo/partner" : [ "src/config/vanila.config.ts" ]
     }
   },
   "exclude": [

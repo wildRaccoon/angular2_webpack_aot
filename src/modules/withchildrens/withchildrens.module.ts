@@ -3,7 +3,9 @@ import { RouterModule, Routes  } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { Child01Component } from "./child01/child01.component"
 import { Child02Component } from "./child02/child02.component"
-import { CustomChildRoutes } from "./child.routes"
+
+import { WithChildrensRoute } from "@bingo/config"
+import { config } from "@bingo/partner"
 
 import { ContainerComponent } from "./container/container"
 
@@ -11,8 +13,8 @@ export const routeConfig:Routes = [
   {
     path: "",
     component: ContainerComponent,
-    children: CustomChildRoutes.length > 0 ? 
-      CustomChildRoutes : 
+    children: config.exists(WithChildrensRoute) ? 
+      config.getRoutes(WithChildrensRoute) : 
       [
         {
           path:"",

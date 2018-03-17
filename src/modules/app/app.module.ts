@@ -6,7 +6,8 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { RouterModule, Routes, Router, Route } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-declare var __ADD_PARTNER_ROUTE__:boolean; 
+import { PartnerRoute } from "@bingo/config"
+import { config } from "@bingo/partner"
 
 export const routeConfig:Routes = [
     {
@@ -52,29 +53,26 @@ export class AppModule {
     private router:Router
   )
   {
-    if(__ADD_PARTNER_ROUTE__)
+    if(config.exists(PartnerRoute))
     {
-      routeConfig.push({
-        path:"partner",
-        loadChildren: "packageName#PartnerModule"
-      });
+      routeConfig.push(...config.getRoutes(PartnerRoute));
 
-      for (var i = 0; i < routeConfig.length; i++) {
-        if(routeConfig[i].path == "")
-        {
-          var item = routeConfig[i];
+      // for (var i = 0; i < routeConfig.length; i++) {
+      //   if(routeConfig[i].path == "")
+      //   {
+      //     var item = routeConfig[i];
           
-          routeConfig[i] = {
-            path:"",
-            loadChildren:"packageName#ReplaceSyncModule"
-          };
+      //     routeConfig[i] = {
+      //       path:"",
+      //       loadChildren:"packageName#ReplaceSyncModule"
+      //     };
 
-          //console.log("replaced component");
-          //console.log(routeConfig);
+      //     //console.log("replaced component");
+      //     //console.log(routeConfig);
 
-          break;
-        }
-      }
+      //     break;
+      //   }
+      // }
 
       router.resetConfig(routeConfig);
     }

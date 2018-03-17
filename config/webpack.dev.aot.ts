@@ -5,6 +5,7 @@ import { AngularCompilerPlugin } from '@ngtools/webpack';
 
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 function root(...args:string[]):string 
 {
@@ -41,11 +42,7 @@ export = function(env:any): Configuration
         },
 
         resolve:{
-            extensions: [".js", ".ts"],
-
-            alias: {
-                "packageName" : root("./src/modules/partner/index.ts" ),
-            }
+            extensions: [".js", ".ts"]
         },
 
         module:{
@@ -69,7 +66,13 @@ export = function(env:any): Configuration
 
                 {
                     test: /\.scss$/,
+                    exclude: /styles\.scss$/, 
                     use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
+                },
+
+                { 
+                    test: /styles\.scss$/, 
+                    use: ExtractTextPlugin.extract([ 'raw-loader', 'sass-loader', 'sass-header' ]) 
                 },
 
                 {
@@ -114,23 +117,21 @@ export = function(env:any): Configuration
 
             new AngularCompilerPlugin({
                 tsConfigPath: root("tsconfig.json"),
-                hostReplacementPaths: {
-                //    "src/modules/withchildrens/child.routes.ts":"src/modules/partner/replacechild.route.ts" 
-                },
                 skipCodeGeneration: true,
+                compilerOptions:{
+                    "paths": {
+                        "@a_package" : [ "src/modules/package/index.ts" ],
+                        "@a_package/*" : [ "src/modules/package/*" ],
+                        "@bingo/config" : [ "src/config/config.ts" ],
+                        "@bingo/partner" : [ "src/modules/partner/index.ts" ]
+                    }
+                }
             }),
 
-
-            new DefinePlugin({
-                __ADD_PARTNER_ROUTE__:true
-            }),
-
-            // new NormalModuleReplacementPlugin(
-            //     /child\.routes(\.ts|\.js)/,
-            //     "../partner/replacechild.route.ts"
-            // ),
+            new ExtractTextPlugin("styles.css"),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client'))
+        
         ],
 
         resolveLoader: {
