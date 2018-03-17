@@ -17,6 +17,9 @@ const path = require('path');
 
 export = function(env:any): Configuration
 {
+    var tsconfigPath = require(root("tsconfig.json")).compilerOptions.paths;
+    tsconfigPath["@bingo/partner"] = [ "src/modules/partner/index.ts" ];
+
     var common: Configuration = 
     {
         mode:"development",
@@ -119,12 +122,7 @@ export = function(env:any): Configuration
                 tsConfigPath: root("tsconfig.json"),
                 skipCodeGeneration: true,
                 compilerOptions:{
-                    "paths": {
-                        "@a_package" : [ "src/modules/package/index.ts" ],
-                        "@a_package/*" : [ "src/modules/package/*" ],
-                        "@bingo/config" : [ "src/config/config.ts" ],
-                        "@bingo/partner" : [ "src/modules/partner/index.ts" ]
-                    }
+                    "paths":tsconfigPath
                 }
             }),
 

@@ -5,14 +5,13 @@ import * as webpack from 'webpack';
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
 
 function root(...args:string[]):string 
 {
     var _root = resolve(__dirname, '..');
     return join(...[_root].concat(args));
 }
-
-const path = require('path');
 
 export = function(env:any): Configuration
 {
@@ -46,9 +45,8 @@ export = function(env:any): Configuration
                 new TsConfigPathsPlugin({ configFile: "./tsconfig.json" })
               ],
 
-            alias: {
-                "@a_package" : root("./src/modules/package/index.ts" ),
-                "packageName" : root("./src/modules/partner/index.ts" ),
+            alias:{
+                "@bingo/partner":root("./src/modules/partner/index.ts")
             }
         },
 
@@ -115,15 +113,6 @@ export = function(env:any): Configuration
             new HtmlWebpackPlugin({
                 template: 'src/index.html'
             }),
-
-            new webpack.DefinePlugin({
-                __ADD_PARTNER_ROUTE__:true
-            }),
-
-            new webpack.NormalModuleReplacementPlugin(
-                /child\.routes\.ts/,
-                "../partner/replacechild.route.ts"
-            ),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './src')),
             

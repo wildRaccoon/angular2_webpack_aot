@@ -41,7 +41,8 @@ export = function(env:any): Configuration
             extensions: [".js", ".ts"],
 
             alias: {
-                "packageName" : root("./src/modules/partner/index.ts" ),
+                "@bingo/config":root("./src/config/config.ts"),
+                "@bingo/partner":root("./src/modules/partner/index.ts")
             }
         },
 
@@ -100,9 +101,6 @@ export = function(env:any): Configuration
         plugins:[
             new HtmlWebpackPlugin({
                 template: 'src/index.html'
-            }),
-            new DefinePlugin({
-                __ADD_PARTNER_ROUTE__:true
             }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),

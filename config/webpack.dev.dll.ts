@@ -35,8 +35,7 @@ export = function(env:any): Configuration
               ],
 
             alias: {
-                "@a_package" : root("./src/modules/package/index.ts" ),
-                "packageName" : root("./src/modules/partner/index.ts" ),
+                "@bingo/partner":root("./src/modules/partner/index.ts")
             }
         },
 
@@ -73,11 +72,7 @@ export = function(env:any): Configuration
 
         optimization:{
             removeEmptyChunks:true,
-            mergeDuplicateChunks:true,
-            // splitChunks:{
-            //     chunks:"all",
-            //     name:"vendor"
-            // }
+            mergeDuplicateChunks:true
         },
 
         output:{
@@ -96,11 +91,6 @@ export = function(env:any): Configuration
         plugins:[
             new HtmlWebpackPlugin({
                 template: 'src/index.dll.html',
-            }),
-
-
-            new webpack.DefinePlugin({
-                __ADD_PARTNER_ROUTE__:true
             }),
             
             new webpack.DllReferencePlugin({
