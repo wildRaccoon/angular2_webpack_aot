@@ -6,6 +6,7 @@ import * as webpack from 'webpack';
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 function root(...args:string[]):string 
 {
@@ -54,7 +55,13 @@ export = function(env:any): Configuration
 
                 {
                     test: /\.scss$/,
+                    exclude: /styles\.scss$/, 
                     use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
+                },
+
+                { 
+                    test: /styles\.scss$/, 
+                    use: ExtractTextPlugin.extract([ 'raw-loader', 'sass-loader', 'sass-header' ]) 
                 },
 
                 {
@@ -97,20 +104,11 @@ export = function(env:any): Configuration
                 context: '.',
                 manifest: require(root('dist/dll/vendor.json')),
                 name:"vendor"
-                //sourceType: 'commonjs'
               }),
 
-            // new webpack.DllReferencePlugin({
-            //         context: '.',
-            //         manifest: require(root('dist/dll/polyfills.json')),
-            //         //sourceType: 'commonjs'
-            //     }),
+            new ExtractTextPlugin("styles.css"),
 
             new CopyWebpackPlugin([
-                // {
-                //     from: root('dist/dll/polyfills.js'),
-                //     to: root('dist/dev/polyfills.js'),
-                // },
                 {
                     from: root('dist/dll/vendor.js'),
                     to: root('dist/dev/vendor.js'),
@@ -118,7 +116,6 @@ export = function(env:any): Configuration
             ]),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
-            //new uglifyjs()
         ],
 
         resolveLoader: {

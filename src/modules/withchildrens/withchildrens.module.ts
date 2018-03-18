@@ -30,8 +30,11 @@ export const routeConfig:Routes = [
           component: Child02Component
         }
       ]
-  }
+  },
+  //...CustomOutletRoutes
 ];
+
+console.log(routeConfig);
 
 @NgModule({
   imports: [
@@ -45,4 +48,7 @@ export const routeConfig:Routes = [
   ]
 })
 export class WithChildrensModule { 
+  constructor(){
+    //console.log(CustomOutletRoutes);
+  }
 }

@@ -2,6 +2,7 @@ import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 var uglifyjs = require('uglifyjs-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 function root(...args:string[]):string 
 {
@@ -58,9 +59,16 @@ export = function(env:any): Configuration
                     use: ['ts-loader','angular2-template-loader', 'angular-router-loader'], 
                     exclude: [/\.(spec|e2e|d)\.ts$/]
                 },
+
                 {
                     test: /\.scss$/,
+                    exclude: /styles\.scss$/, 
                     use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
+                },
+
+                { 
+                    test: /styles\.scss$/, 
+                    use: ExtractTextPlugin.extract([ 'raw-loader', 'sass-loader', 'sass-header' ]) 
                 },
 
                 {
@@ -102,6 +110,8 @@ export = function(env:any): Configuration
             new HtmlWebpackPlugin({
                 template: 'src/index.html'
             }),
+
+            new ExtractTextPlugin("styles.css"),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
         ],

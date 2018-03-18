@@ -9,16 +9,7 @@ class PartnerConfig implements IConfig {
         return [
           {
             path:"",
-            redirectTo:"ch01",
-            pathMatch:"full"
-          },
-          {
-            path:"ch01",
             loadChildren:"./partner.module#PartnerModule"
-          },
-          {
-            path:"ch02",
-            loadChildren:"./replacesync.module#ReplaceSyncModule"
           }
         ];
       }
