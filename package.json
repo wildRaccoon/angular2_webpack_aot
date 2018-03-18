@@ -38,6 +38,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-typescript": "^4.0.1",
     "html-loader": "^0.5.5",
+    "html-webpack-include-assets-plugin": "^1.0.4",
     "html-webpack-plugin": "webpack-contrib/html-webpack-plugin",
     "ignore-loader": "^0.1.2",
     "map-stream": "0.0.7",

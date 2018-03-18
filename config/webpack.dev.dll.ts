@@ -7,6 +7,7 @@ var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 function root(...args:string[]):string 
 {
@@ -63,16 +64,15 @@ export = function(env:any): Configuration
                     test: /styles\.scss$/, 
                     use: ExtractTextPlugin.extract([ 'raw-loader', 'sass-loader', 'sass-header' ]) 
                 },
-
-                {
-                    test: /\.png$/,
-                    include: root('src', 'app'),
-                    use: 'raw-loader'
-                },
-
                 {
                     test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-                    use: 'file-loader?name=assets/[name].[hash].[ext]'
+                    loader: 'file-loader',
+                    options: {
+                        name:'[name].[ext]',
+                        useRelativePath:true,
+                        emitFile:false,
+                        context:root("src")
+                    }
                 }
             ]
         },
@@ -92,12 +92,12 @@ export = function(env:any): Configuration
         devServer: {
             historyApiFallback: true,
             stats: 'minimal',
-            contentBase: root('dist/dev')
+            contentBase: root('src')
         },
 
         plugins:[
             new HtmlWebpackPlugin({
-                template: 'src/index.dll.html',
+                template: 'src/index.html',
             }),
             
             new webpack.DllReferencePlugin({
@@ -114,6 +114,12 @@ export = function(env:any): Configuration
                     to: root('dist/dev/vendor.js'),
                 }
             ]),
+
+            new HtmlWebpackIncludeAssetsPlugin({ 
+                assets: [ "vendor.js" ], 
+                append: false,
+                publicPath:true
+            }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
         ],
