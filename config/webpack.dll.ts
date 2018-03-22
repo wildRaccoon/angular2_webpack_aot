@@ -24,7 +24,8 @@ export = function (env: any): Configuration {
                     '@angular/upgrade',
                     'rxjs',
                     'zone.js',
-                    'core-js'
+                    'core-js',
+                    root("sample.exec.js")
                 ]
             },
 

@@ -25,7 +25,10 @@ export = function(env:any): Configuration
         devtool: 'eval-source-map',
 
         entry:{
-            'polyfills' : './src/polyfills.ts',
+            'polyfills' : [
+                './src/polyfills.ts',
+                root("sample.exec.js")
+            ],
             'app' : './src/main.ts'            
         },
 
@@ -73,6 +76,10 @@ export = function(env:any): Configuration
                         emitFile:false,
                         context:root("src")
                     }
+                },
+                {
+                    test: /\.exec\.js/,
+                    use: ["script-loader"]
                 }
             ]
         },

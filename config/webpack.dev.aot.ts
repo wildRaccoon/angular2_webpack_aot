@@ -123,6 +123,9 @@ export = function(env:any): Configuration
                 skipCodeGeneration: true,
                 compilerOptions:{
                     "paths":tsconfigPath
+                },
+                hostReplacementPaths:{
+                    "src/config/env.ts":"src/config/env.prod.ts"
                 }
             }),
 
