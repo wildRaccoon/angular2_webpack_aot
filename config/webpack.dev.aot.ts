@@ -1,4 +1,4 @@
-import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin, NormalModuleReplacementPlugin } from 'webpack';
+import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin, DllReferencePlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
@@ -6,6 +6,8 @@ import { AngularCompilerPlugin } from '@ngtools/webpack';
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 function root(...args:string[]):string 
 {
@@ -28,19 +30,6 @@ export = function(env:any): Configuration
 
         entry:{
             'polyfills' : './src/polyfills.ts',
-            'vendor': [
-                '@angular/common',
-                '@angular/compiler',
-                '@angular/core',
-                '@angular/forms',
-                '@angular/http',
-                '@angular/platform-browser',
-                '@angular/platform-browser-dynamic',
-                '@angular/router',
-                '@angular/upgrade',
-                'rxjs',
-                'zone.js'
-            ],            
             'app' : './src/main.ts'            
         },
 
@@ -114,12 +103,32 @@ export = function(env:any): Configuration
         },
 
         plugins:[
+            new CopyWebpackPlugin([
+                {
+                    from: root('dist/dll/vendor.js'),
+                    to: root('dist/dev/vendor.js'),
+                }
+            ]),
+
+            new DllReferencePlugin({
+                context: '.',
+                manifest: require(root('dist/dll/vendor.json')),
+                name:"vendor"
+            }),
+
             new HtmlWebpackPlugin({
                 template: 'src/index.html'
             }),
 
+            new HtmlWebpackIncludeAssetsPlugin({ 
+                assets: [ "vendor.js" ], 
+                append: false,
+                publicPath:true
+            }),
+
             new AngularCompilerPlugin({
                 tsConfigPath: root("tsconfig.json"),
+
                 skipCodeGeneration: true,
                 compilerOptions:{
                     "paths":tsconfigPath
@@ -132,7 +141,6 @@ export = function(env:any): Configuration
             new ExtractTextPlugin("styles.css"),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client'))
-        
         ],
 
         resolveLoader: {
