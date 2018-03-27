@@ -1,7 +1,6 @@
 import { Configuration, loader, optimize, ContextReplacementPlugin, IgnorePlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import { WebpackCompilerHost } from '@ngtools/webpack/src/compiler_host';
 import * as webpack from 'webpack';
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
@@ -26,10 +25,11 @@ export = function(env:any): Configuration
 
         entry:{
             'polyfills' : [
-                './src/polyfills.ts',
-                root("sample.exec.js")
+                './src/polyfills.ts'
             ],
-            'app' : './src/main.ts'            
+            'app' : [
+                './src/main.ts'
+            ]            
         },
 
         resolve:{

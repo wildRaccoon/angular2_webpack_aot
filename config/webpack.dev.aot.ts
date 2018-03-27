@@ -29,8 +29,8 @@ export = function(env:any): Configuration
         devtool: 'eval-source-map',
 
         entry:{
-            'polyfills' : './src/polyfills.ts',
-            'app' : './src/main.ts'            
+            'polyfills' : ['./src/polyfills.ts'],
+            'app' : ['./src/main.ts'  ]
         },
 
         resolve:{
@@ -82,18 +82,14 @@ export = function(env:any): Configuration
 
         optimization:{
             removeEmptyChunks:true,
-            mergeDuplicateChunks:true,
-            splitChunks:{
-                chunks:"all",
-                name:"vendor"
-            }
+            mergeDuplicateChunks:true
         },
 
         output:{
             path: root('dist/dev'),
             publicPath: 'http://localhost:8080/',
             filename: '[name].js',
-            chunkFilename: '[name].js'
+            chunkFilename: '[id].js'
         },
 
         devServer: {
