@@ -130,8 +130,9 @@ export = function(env:any): Configuration
                     "paths":tsconfigPath
                 },
                 hostReplacementPaths:{
-                    "src/config/env.ts":"src/config/env.prod.ts"
-                }
+                    "env":"env.prod"
+                },
+                host:null                
             }),
 
             new ExtractTextPlugin("styles.css"),
