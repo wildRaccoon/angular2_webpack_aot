@@ -2,6 +2,7 @@ import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
+import { NodeJsSyncHost } from '@angular-devkit/core/node/host';
 
 var uglifyjs = require('uglifyjs-webpack-plugin');
 var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
@@ -21,6 +22,8 @@ export = function(env:any): Configuration
 {
     var tsconfigPath = require(root("tsconfig.json")).compilerOptions.paths;
     tsconfigPath["@bingo/partner"] = [ "src/modules/partner/index.ts" ];
+
+    var _host = new NodeJsSyncHost();
 
     var common: Configuration = 
     {
@@ -132,7 +135,7 @@ export = function(env:any): Configuration
                 hostReplacementPaths:{
                     "env":"env.prod"
                 },
-                host:null                
+                host:_host                
             }),
 
             new ExtractTextPlugin("styles.css"),
