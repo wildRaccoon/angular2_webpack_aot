@@ -6,5 +6,3 @@ this project combine all this:
   angular2 aot,
   wrapped by webpack
   
-
-  
