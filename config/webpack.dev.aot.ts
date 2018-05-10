@@ -56,7 +56,7 @@ export = function(env:any): Configuration
                 {
                     test: /\.js|\.ts/,
                     use: [ 'angular-router-loader'], 
-                    include: root('src')
+                    include: [root('src')]
                 },
 
                 {
@@ -72,7 +72,7 @@ export = function(env:any): Configuration
 
                 {
                     test: /\.png$/,
-                    include: root('src','app'),
+                    include: [root('src','app')],
                     use: 'raw-loader'
                 },
 
