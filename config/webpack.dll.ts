@@ -24,7 +24,8 @@ export = function (env: any): Configuration {
                     '@angular/upgrade',
                     'rxjs',
                     'zone.js',
-                    'core-js'
+                    'core-js',
+                    'jquery/dist/jquery.min.js'
                 ]
             },
 
@@ -53,6 +54,11 @@ export = function (env: any): Configuration {
                         test: /\.ts$/,
                         use: ['ts-loader'],
                         exclude: [/\.(spec|e2e|d)\.ts$/]
+                    },
+
+                    {
+                        test:"/jquery/",
+                        use:'script-loader'
                     }
                 ]
             },

@@ -33,7 +33,8 @@ export = function(env:any): Configuration
                 '@angular/router',
                 '@angular/upgrade',
                 'rxjs',
-                'zone.js'
+                'zone.js',
+                'jquery/dist/jquery.min.js'
             ],
             'app' : './src/main.ts'
         },
@@ -83,6 +84,11 @@ export = function(env:any): Configuration
                 {
                     test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                     use: 'file-loader?name=assets/[name].[hash].[ext]'
+                },
+
+                {
+                    test: /jquery|exec\.script/,
+                    use:'script-loader'
                 }
             ]
         },
