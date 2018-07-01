@@ -60,12 +60,12 @@ export = function(env:any): Configuration
                 {
                     test: /\.scss$/,
                     exclude: /styles\.scss$/, 
-                    use: [ 'raw-loader', 'sass-loader', 'sass-header' ]
+                    use: [ 'raw-loader', 'fast-sass-loader', 'resolve-url-loader', 'sass-header' ]
                 },
 
                 { 
                     test: /styles\.scss$/, 
-                    use: ExtractTextPlugin.extract([ 'raw-loader', 'sass-loader', 'sass-header' ]) 
+                    use: ExtractTextPlugin.extract([ 'raw-loader', 'fast-sass-loader', 'resolve-url-loader', 'sass-header' ]) 
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
