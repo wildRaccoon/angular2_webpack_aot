@@ -32,8 +32,10 @@ export = function(env:any): Configuration
         devtool: 'eval-source-map',
 
         entry:{
-            'polyfills' : ['./src/polyfills.ts'],
-            'app' : ['./src/main.ts'  ]
+            'app' : [
+                './src/polyfills.ts',
+                './src/main.ts'  
+            ]
         },
 
         resolve:{
@@ -104,6 +106,10 @@ export = function(env:any): Configuration
         plugins:[
             new CopyWebpackPlugin([
                 {
+                    from: root('dist/dll/polyfills.js'),
+                    to: root('dist/dev/polyfills.js'),
+                },
+                {
                     from: root('dist/dll/vendor.js'),
                     to: root('dist/dev/vendor.js'),
                 }
@@ -115,12 +121,18 @@ export = function(env:any): Configuration
                 name:"vendor"
             }),
 
+            new DllReferencePlugin({
+                context: '.',
+                manifest: require(root('dist/dll/polyfills.json')),
+                name:"polyfills"
+              }),
+
             new HtmlWebpackPlugin({
                 template: 'src/index.html'
             }),
 
             new HtmlWebpackIncludeAssetsPlugin({ 
-                assets: [ "vendor.js" ], 
+                assets: [ "polyfills.js" ,"vendor.js" ], 
                 append: false,
                 publicPath:true
             }),

@@ -24,12 +24,10 @@ export = function(env:any): Configuration
         devtool: 'eval-source-map',
 
         entry:{
-            'polyfills' : [
-                './src/polyfills.ts'
-            ],
             'app' : [
+                './src/polyfills.ts',
                 './src/main.ts'
-            ]            
+            ]
         },
 
         resolve:{
@@ -106,16 +104,26 @@ export = function(env:any): Configuration
             new HtmlWebpackPlugin({
                 template: 'src/index.html',
             }),
-            
+
             new webpack.DllReferencePlugin({
                 context: '.',
                 manifest: require(root('dist/dll/vendor.json')),
                 name:"vendor"
               }),
+            
+            new webpack.DllReferencePlugin({
+                context: '.',
+                manifest: require(root('dist/dll/polyfills.json')),
+                name:"polyfills"
+              }),
 
             new ExtractTextPlugin("styles.css"),
 
             new CopyWebpackPlugin([
+                {
+                    from: root('dist/dll/polyfills.js'),
+                    to: root('dist/dev/polyfills.js'),
+                },
                 {
                     from: root('dist/dll/vendor.js'),
                     to: root('dist/dev/vendor.js'),
@@ -123,7 +131,7 @@ export = function(env:any): Configuration
             ]),
 
             new HtmlWebpackIncludeAssetsPlugin({ 
-                assets: [ "vendor.js" ], 
+                assets: [ "polyfills.js","vendor.js" ], 
                 append: false,
                 publicPath:true
             }),
