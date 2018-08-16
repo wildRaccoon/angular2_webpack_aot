@@ -30,7 +30,7 @@ export const routeConfig:Routes = [
 
 @NgModule({
   imports: [
-    BrowserModule,    
+    BrowserModule.withServerTransition({ appId: 'serverApp' }), 
     RouterModule.forRoot(routeConfig)
   ],
   declarations: [
