@@ -3,11 +3,10 @@ import { HomeComponent } from './sync/home.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { RouterModule, Routes, Router, Route } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-import { PartnerRoute } from "@bingo/config"
-import { config } from "@bingo/partner"
+import { PartnerRoutes } from "@bingo/partner";
 
 export const routeConfig:Routes = [
     {
@@ -25,7 +24,8 @@ export const routeConfig:Routes = [
     {
       path:"withchild",
       loadChildren: "../withchildrens/withchildrens.module#WithChildrensModule"
-    }
+    },
+    ...PartnerRoutes
 ];
 
 @NgModule({
@@ -48,33 +48,5 @@ export const routeConfig:Routes = [
     }
   ]
 })
-export class AppModule { 
-  constructor(
-    private router:Router
-  )
-  {
-    if(config.exists(PartnerRoute))
-    {
-      routeConfig.push(...config.getRoutes(PartnerRoute));
-
-      // for (var i = 0; i < routeConfig.length; i++) {
-      //   if(routeConfig[i].path == "")
-      //   {
-      //     var item = routeConfig[i];
-          
-      //     routeConfig[i] = {
-      //       path:"",
-      //       loadChildren:"packageName#ReplaceSyncModule"
-      //     };
-
-      //     //console.log("replaced component");
-      //     //console.log(routeConfig);
-
-      //     break;
-      //   }
-      // }
-
-      router.resetConfig(routeConfig);
-    }
-  }
+export class AppModule {
 }

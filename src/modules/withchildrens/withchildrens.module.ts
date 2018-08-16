@@ -1,45 +1,15 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes  } from "@angular/router";
+import { RouterModule  } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { Child01Component } from "./child01/child01.component"
 import { Child02Component } from "./child02/child02.component"
-
-import { WithChildrensRoute } from "@bingo/config"
-import { config } from "@bingo/partner"
-
 import { ContainerComponent } from "./container/container"
-
-export const routeConfig:Routes = [
-  {
-    path: "",
-    component: ContainerComponent,
-    children: config.exists(WithChildrensRoute) ? 
-      config.getRoutes(WithChildrensRoute) : 
-      [
-        {
-          path:"",
-          redirectTo:"ch01",
-          pathMatch:"full"
-        },
-        {
-          path:"ch01",
-          component: Child01Component
-        },
-        {
-          path:"ch02",
-          component: Child02Component
-        }
-      ]
-  },
-  //...CustomOutletRoutes
-];
-
-console.log(routeConfig);
+import { WithChildrensRoute } from '@bingo/partner';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routeConfig)
+    RouterModule.forChild(WithChildrensRoute)
   ],
   declarations: [
     ContainerComponent, 
@@ -48,7 +18,4 @@ console.log(routeConfig);
   ]
 })
 export class WithChildrensModule { 
-  constructor(){
-    //console.log(CustomOutletRoutes);
-  }
 }

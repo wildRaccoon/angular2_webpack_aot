@@ -26,8 +26,8 @@
       "@bingo/config" : [ "src/config/config.ts" ],
       "@bingo/config/*" : [ "src/config/*" ],
 
-      "@bingo/partner" : [ "src/vanila.partner/vanila.partner.ts" ],
-      "@bingo/partner/*" : [ "src/vanila.partner/*" ]
+      "@bingo/partner" : [ "src/modules/partner/index.ts" ],
+      "@bingo/partner/*" : [ "src/modules/partner/*" ]
     }
   },
   "exclude": [

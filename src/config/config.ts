@@ -1,9 +1,10 @@
 import {Routes} from '@angular/router'
 
 export interface IConfig {
-   getRoutes(component:string) : Routes
-   exists(component:string) : boolean
+    FeatureEnabled(feature:PluginFeatures) : boolean
 } 
 
-export const WithChildrensRoute:string = "withchildren";
-export const PartnerRoute:string = "partner";
+export enum PluginFeatures
+{
+    Partner
+}

@@ -3,21 +3,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PartnerComponent } from "./partnercomponent/partner.component";
 import { ReplaceSyncComponent1 } from "./replacesync1/replacesync";
+import { ReplaceSyncComponent } from "./replacesync/replacesync";
 
 
 const routeConfig:Routes = [
     {
         path: "",
-        component: PartnerComponent
-    },
-    {
-      path: "p1",
-      component: ReplaceSyncComponent1
-    },
-    {
-      path: "p2",
-      component: PartnerComponent
-    }
+        component: PartnerComponent,
+        children: [
+          {
+            path:"",
+            redirectTo:"p1",
+            pathMatch:"full"
+          },
+          {
+            path: "p1",
+            component: ReplaceSyncComponent
+          },
+          {
+            path: "p2",
+            component: ReplaceSyncComponent1
+          }
+        ]
+    } 
   ];
 
 
@@ -28,6 +36,7 @@ const routeConfig:Routes = [
   ],
   declarations: [
     PartnerComponent,
+    ReplaceSyncComponent,
     ReplaceSyncComponent1
   ]
 })

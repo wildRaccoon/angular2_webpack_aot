@@ -1,36 +1,25 @@
 import { Routes  } from "@angular/router";
-import { IConfig, WithChildrensRoute, PartnerRoute } from "@bingo/config";
+import { IConfig,PluginFeatures } from "@bingo/config";
 
 class PartnerConfig implements IConfig {
-    public getRoutes(component:string) : Routes
+    public FeatureEnabled(feature:PluginFeatures) : boolean
     {
-      if(component == WithChildrensRoute)
-      {
-        return [
-          {
-            path:"",
-            loadChildren:"./partner.module#PartnerModule"
-          }
-        ];
-      }
-
-      if(component == PartnerRoute)
-      {
-        return [
-          {
-            path:PartnerRoute,
-            loadChildren:"./partner.module#PartnerModule"
-          }
-        ];
-      }
-        
-      return [];
-    }
-    
-    public exists(component:string) : boolean
-    {
-        return component == WithChildrensRoute || component == PartnerRoute;
-    }
+        return feature == PluginFeatures.Partner;
+    };
  }
 
  export var config: IConfig = new PartnerConfig();
+
+ export const PartnerRoutes:Routes = [
+        {
+          path:"partner",
+          loadChildren:"@bingo/partner#PartnerModule"
+        }
+      ];
+
+export const WithChildrensRoute:Routes = [
+  {
+    path:"",
+    loadChildren:"@bingo/partner#PartnerModule"
+  }
+];

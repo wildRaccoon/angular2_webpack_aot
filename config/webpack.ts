@@ -2,13 +2,8 @@ import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
-import { NodeJsSyncHost } from '@angular-devkit/core/node/host';
 
-var uglifyjs = require('uglifyjs-webpack-plugin');
-var TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 function root(...args:string[]):string 
 {
@@ -20,10 +15,21 @@ const path = require('path');
 
 export = function(env:any): Configuration
 {
-    var tsconfigPath = require(root("tsconfig.json")).compilerOptions.paths;
-    tsconfigPath["@bingo/partner"] = [ "src/modules/partner/index.ts" ];
+    env = env ? env : {};
 
-    var _host = new NodeJsSyncHost();
+    env.aot = env.aot ? false : true;
+    env.partner = env.partner ? true : false;
+
+    console.log(env);
+
+    var tsconfigPath = require(root("tsconfig.json")).compilerOptions.paths;
+
+    if(env.partner)
+    {
+        tsconfigPath["@bingo/partner"] = [ "src/modules/partner/index.ts" ];
+        tsconfigPath["@bingo/partner/*"] = [ "src/modules/partner/*" ];
+    }
+
 
     var common: Configuration = 
     {
@@ -32,8 +38,23 @@ export = function(env:any): Configuration
         devtool: 'eval-source-map',
 
         entry:{
-            'app' : [
-                './src/polyfills.ts',
+            'vendor': [
+                '@angular/common',
+                '@angular/compiler',
+                '@angular/core',
+                '@angular/forms',
+                '@angular/http',
+                '@angular/platform-browser',
+                '@angular/platform-browser-dynamic',
+                '@angular/router',
+                '@angular/upgrade',
+                'rxjs',
+                'jquery/dist/jquery.min.js'
+            ],
+            'polyfills': [
+                './src/polyfills.ts'
+            ],
+            'app' : [                
                 './src/main.ts'  
             ]
         },
@@ -51,14 +72,7 @@ export = function(env:any): Configuration
 
                 {
                     test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-                    use: [ '@ngtools/webpack' ], 
-                    exclude: [/\.(spec|e2e|d)\.ts$/]
-                },
-
-                {
-                    test: /\.js|\.ts/,
-                    use: [ 'angular-router-loader'], 
-                    include: [root('src')]
+                    use: [ '@ngtools/webpack' ]
                 },
 
                 {
@@ -92,65 +106,32 @@ export = function(env:any): Configuration
 
         output:{
             path: root('dist/dev'),
-            publicPath: 'http://localhost:8080/',
             filename: '[name].js',
-            chunkFilename: '[id].js'
-        },
-
-        devServer: {
-            historyApiFallback: true,
-            stats: 'minimal',
-            contentBase: root('dist/dev')
+            chunkFilename: '[name].chunk.js'
         },
 
         plugins:[
-            new CopyWebpackPlugin([
-                {
-                    from: root('dist/dll/polyfills.js'),
-                    to: root('dist/dev/polyfills.js'),
-                },
-                {
-                    from: root('dist/dll/vendor.js'),
-                    to: root('dist/dev/vendor.js'),
-                }
-            ]),
-
-            new DllReferencePlugin({
-                context: '.',
-                manifest: require(root('dist/dll/vendor.json')),
-                name:"vendor"
-            }),
-
-            new DllReferencePlugin({
-                context: '.',
-                manifest: require(root('dist/dll/polyfills.json')),
-                name:"polyfills"
-              }),
-
-            new HtmlWebpackPlugin({
-                template: 'src/index.html'
-            }),
-
-            new HtmlWebpackIncludeAssetsPlugin({ 
-                assets: [ "polyfills.js" ,"vendor.js" ], 
-                append: false,
-                publicPath:true
-            }),
-
             new AngularCompilerPlugin({
                 tsConfigPath: root("tsconfig.json"),
-
-                skipCodeGeneration: true,
+                mainPath:"./src/main.ts",
+                skipCodeGeneration: env.aot,
                 compilerOptions:{
                     "paths":tsconfigPath
                 },
                 hostReplacementPaths:{
                     "env":"env.prod"
                 },
-                host:_host                
+                nameLazyFiles:true
             }),
 
             new ExtractTextPlugin("styles.css"),
+
+            new HtmlWebpackPlugin({
+                template: 'src/index.html',
+                inject: 'body',
+                chunksSortMode: 'manual', 
+                chunks: ['polyfills','vendor', 'styles', 'app']
+            }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client'))
         ],
