@@ -4,9 +4,10 @@ import { HomeComponent } from './sync/home.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { RouterModule, Routes } from "@angular/router";
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy,PathLocationStrategy } from '@angular/common';
 
 import { PartnerRoutes } from "@bingo/partner";
+import { HttpClientModule } from '@angular/common/http';
 
 export const routeConfig:Routes = [
     {
@@ -31,7 +32,8 @@ export const routeConfig:Routes = [
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }), 
-    RouterModule.forRoot(routeConfig)
+    RouterModule.forRoot(routeConfig),
+    HttpClientModule
   ],
   declarations: [
     AppComponent,
@@ -44,7 +46,7 @@ export const routeConfig:Routes = [
 
   providers:    [
     {
-        provide: LocationStrategy, useClass: HashLocationStrategy,        
+        provide: LocationStrategy, useClass: PathLocationStrategy,        
     }
   ]
 })
