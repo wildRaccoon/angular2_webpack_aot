@@ -3,7 +3,7 @@ import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
 
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 function root(...args:string[]):string 
 {
@@ -35,7 +35,7 @@ export = function(env:any): Configuration
     {
         mode:"development",
 
-        devtool: 'eval-source-map',
+        devtool: 'nosources-source-map',
 
         entry:{
             'vendor': [
@@ -83,7 +83,7 @@ export = function(env:any): Configuration
 
                 { 
                     test: /styles\.scss$/, 
-                    use: ExtractTextPlugin.extract([ 'raw-loader', 'sass-loader', 'sass-header' ]) 
+                    use: [ MiniCssExtractPlugin.loader, "css-loader",'sass-loader', 'sass-header' ] 
                 },
 
                 {
@@ -124,7 +124,10 @@ export = function(env:any): Configuration
                 nameLazyFiles:true
             }),
 
-            new ExtractTextPlugin("styles.css"),
+            new MiniCssExtractPlugin({
+                filename: "[name].css",
+                chunkFilename: "[id].css"
+              }),
 
             new HtmlWebpackPlugin({
                 template: 'src/index.html',
