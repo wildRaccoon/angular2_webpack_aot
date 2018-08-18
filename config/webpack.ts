@@ -67,6 +67,7 @@ export = function(env:any): Configuration
             rules:[
                 {
                     test: /\.html$/,
+                    exclude:root("src/index.html"),
                     use: 'html-loader'
                 },
 
@@ -130,6 +131,7 @@ export = function(env:any): Configuration
               }),
 
             new HtmlWebpackPlugin({
+                title:"My Custom Title",
                 template: 'src/index.html',
                 inject: 'body',
                 chunksSortMode: 'manual', 
