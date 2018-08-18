@@ -1,4 +1,4 @@
-import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin, DllReferencePlugin } from 'webpack';
+import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin, DllReferencePlugin, ProvidePlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
@@ -134,6 +134,10 @@ export = function(env:any): Configuration
                 inject: 'body',
                 chunksSortMode: 'manual', 
                 chunks: ['polyfills','vendor', 'styles', 'app']
+            }),
+
+            new ProvidePlugin({
+                '$':          'jquery'
             }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client'))
