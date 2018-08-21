@@ -18,7 +18,6 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const { AppServerModule, LAZY_MODULE_MAP } = require('./dist/dev_ssr/app');
-console.log(AppServerModule);
 
 // Express Engine
 import { ngExpressEngine } from '@nguniversal/express-engine';
