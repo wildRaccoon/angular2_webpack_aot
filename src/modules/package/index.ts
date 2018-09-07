@@ -1,2 +1,1 @@
-export * from "./package.module";
-export * from "./a_component/a_component";
+export * from "./modules/package/package.module";

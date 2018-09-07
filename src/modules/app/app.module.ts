@@ -1,47 +1,27 @@
-import { AppComponent } from './norm/app.component';
-import { HomeComponent } from './sync/home.component';
-
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { RouterModule, Routes } from "@angular/router";
 import { LocationStrategy, HashLocationStrategy,PathLocationStrategy } from '@angular/common';
-
-import { PartnerRoutes } from "@bingo/partner";
 import { HttpClientModule } from '@angular/common/http';
+import { AppContainer } from './container/app.container';
+import { HomeComponent } from './components/sync/home.component';
+import { AppRoute } from './app.route';
+import { PartnerSharedModule } from "@bingo/partner";
 
-export const routeConfig:Routes = [
-    {
-        path: "",
-        component: HomeComponent
-    },
-    {
-        path:"lazy",
-        loadChildren:"./lazy/lazy.module#LazyModule"
-    },
-    {
-      path: "a_package",
-      loadChildren:"@a_package#AModule"
-    },
-    {
-      path:"withchild",
-      loadChildren: "../withchildrens/withchildrens.module#WithChildrensModule"
-    },
-    ...PartnerRoutes
-];
 
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }), 
-    RouterModule.forRoot(routeConfig),
-    HttpClientModule
+    HttpClientModule,
+    AppRoute,
+    PartnerSharedModule
   ],
   declarations: [
-    AppComponent,
+    AppContainer,
     HomeComponent
   ],
 
   bootstrap: [
-    AppComponent 
+    AppContainer 
   ],
 
   providers:    [

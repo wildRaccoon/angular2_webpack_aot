@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { SubComponent } from './components/sub_component';
 
-import { LazyComponent } from './lazy.component';
 
 export const routeConfig:Routes = [
     {
         path:"",
-        component:LazyComponent
+        component:SubComponent
     }
 ];
 
@@ -17,7 +17,7 @@ export const routeConfig:Routes = [
     RouterModule.forChild(routeConfig)
   ],
   declarations: [
-    LazyComponent
+    SubComponent
   ]
 })
-export class LazyModule { }
+export class SubModule { }

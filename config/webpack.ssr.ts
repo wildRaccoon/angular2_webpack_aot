@@ -15,7 +15,7 @@ export = function(env:any): Configuration
     env = env ? env : {};
 
     env.aot = env.aot ? true : false;
-    env.partner = env.partner ? true : false;
+    env.partner = env.partner ? false : true;
 
     console.log(env);
 
@@ -23,8 +23,8 @@ export = function(env:any): Configuration
 
     if(env.partner)
     {
-        tsconfigPath["@bingo/partner"] = [ "src/modules/partner/index.ts" ];
-        tsconfigPath["@bingo/partner/*"] = [ "src/modules/partner/*" ];
+        tsconfigPath["@bingo/partner"] = [ "src/partner/index.ts" ];
+        tsconfigPath["@bingo/partner/*"] = [ "src/partner/*" ];
     }
 
 

@@ -1,9 +1,10 @@
-import { Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from "@angular/router";
 import { ContainerComponent } from "./container/container";
-import { Child01Component } from "./child01/child01.component";
-import { Child02Component } from "./child02/child02.component";
+import { Child01Component } from "./components/child01/child01.component";
+import { Child02Component } from "./components/child02/child02.component";
 
-export const WithChildrensRoute:Routes = [
+const routes:Routes = [
     {
       path: "",
       component: ContainerComponent,
@@ -24,3 +25,12 @@ export const WithChildrensRoute:Routes = [
         ]
     }
   ];
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(routes)
+  ],
+  exports: [RouterModule]
+})
+export class WithChildrensRouter { 
+}

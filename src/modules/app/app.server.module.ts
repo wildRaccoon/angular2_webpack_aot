@@ -3,7 +3,7 @@ import { ServerModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from "@nguniversal/module-map-ngfactory-loader";
 
 import { AppModule } from './app.module';
-import { AppComponent } from './norm/app.component';
+import { AppContainer } from './container/app.container';
 
 @NgModule({
   imports: [
@@ -11,6 +11,6 @@ import { AppComponent } from './norm/app.component';
     ServerModule,
     ModuleMapLoaderModule
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppContainer],
 })
 export class AppServerModule {}

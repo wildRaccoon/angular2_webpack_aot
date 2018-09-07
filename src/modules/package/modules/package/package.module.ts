@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
-
-import { AComponent } from './a_component/a_component';
+import { AComponent } from './components/a_component/a_component';
 
 export const routeConfig:Routes = [
     {
@@ -11,7 +10,7 @@ export const routeConfig:Routes = [
     },
     {
       path:"subroute",
-      loadChildren: "./subroute/sub.module#SubModule"
+      loadChildren: "../subroute/sub.module#SubModule"
     }
 ];
 

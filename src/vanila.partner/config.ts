@@ -1,5 +1,6 @@
-import { Routes  } from "@angular/router";
 import { IConfig, PluginFeatures } from "@bingo/config";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 class VanillaConfig implements IConfig {
     public FeatureEnabled(feature:PluginFeatures) : boolean
@@ -10,6 +11,12 @@ class VanillaConfig implements IConfig {
 
 export var config: IConfig = new VanillaConfig();
 
-//export routes which can be replaced in app
-export const PartnerRoutes:Routes = [];
-export * from "../modules/withchildrens/withchildrens.route"; 
+
+@NgModule({
+    imports: [
+      CommonModule
+    ]
+})
+export class PartnerSharedModule
+{
+}

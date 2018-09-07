@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule  } from "@angular/router";
 import { CommonModule } from '@angular/common';
-import { Child01Component } from "./child01/child01.component"
-import { Child02Component } from "./child02/child02.component"
+import { Child01Component } from "./components/child01/child01.component"
+import { Child02Component } from "./components/child02/child02.component"
 import { ContainerComponent } from "./container/container"
-import { WithChildrensRoute } from '@bingo/partner';
+import { WithChildrensRouter } from './withchildrens.route';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(WithChildrensRoute)
+    WithChildrensRouter
   ],
   declarations: [
     ContainerComponent, 

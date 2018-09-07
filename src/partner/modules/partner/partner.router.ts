@@ -1,15 +1,14 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PartnerComponent } from "./partnercomponent/partner.component";
-import { ReplaceSyncComponent1 } from "./replacesync1/replacesync";
-import { ReplaceSyncComponent } from "./replacesync/replacesync";
+import { PartnerContaner } from "./container/partner.container";
+import { ReplaceSyncComponent } from "./components/replacesync/replacesync";
+import { ReplaceSyncComponent1 } from "./components/replacesync1/replacesync";
 
 
 const routeConfig:Routes = [
     {
         path: "",
-        component: PartnerComponent,
+        component: PartnerContaner,
         children: [
           {
             path:"",
@@ -31,19 +30,10 @@ const routeConfig:Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forChild(routeConfig)
   ],
-  declarations: [
-    PartnerComponent,
-    ReplaceSyncComponent,
-    ReplaceSyncComponent1
-  ]
+  exports: [RouterModule]
 })
-export class PartnerModule
+export class PartnerRouter
 {
-  public ShowName(): void
-  {
-      console.log("PartnerModule - loaded.");
-  }
 }
