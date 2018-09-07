@@ -6,6 +6,7 @@ import { AppContainer } from './container/app.container';
 import { HomeComponent } from './components/sync/home.component';
 import { AppRoute } from './app.route';
 import { PartnerSharedModule } from "@bingo/partner";
+import { Logger } from '@bingo/config/interfaces/service/Logger.';
 
 
 @NgModule({
@@ -31,4 +32,8 @@ import { PartnerSharedModule } from "@bingo/partner";
   ]
 })
 export class AppModule {
+  constructor(private logger:Logger)
+  {
+    this.logger.Info("Test info message.");
+  }
 }
