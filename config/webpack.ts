@@ -1,4 +1,4 @@
-import { Configuration, loader, optimize, ContextReplacementPlugin, DefinePlugin, DllReferencePlugin, ProvidePlugin } from 'webpack';
+import { Configuration, ContextReplacementPlugin, ProvidePlugin } from 'webpack';
 import { resolve, join } from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
@@ -17,7 +17,7 @@ export = function(env:any): Configuration
 {
     env = env ? env : {};
 
-    env.aot = env.aot ? false : true;
+    env.aot = env.aot ? true : false;
     env.partner = env.partner ? true : false;
 
     console.log(env);
