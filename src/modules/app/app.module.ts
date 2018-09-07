@@ -7,6 +7,7 @@ import { HomeComponent } from './components/sync/home.component';
 import { AppRoute } from './app.route';
 import { PartnerSharedModule } from "@bingo/partner";
 import { Logger } from '@bingo/config/interfaces/service/Logger.';
+import { DynamicDirectiveItem } from '@bingo/config/interfaces/service/DynamicComponentFactory';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { Logger } from '@bingo/config/interfaces/service/Logger.';
   ],
   declarations: [
     AppContainer,
-    HomeComponent
+    HomeComponent,
+    DynamicDirectiveItem
   ],
 
   bootstrap: [
