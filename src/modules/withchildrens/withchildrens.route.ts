@@ -3,8 +3,10 @@ import { RouterModule, Routes } from "@angular/router";
 import { ContainerComponent } from "./container/container";
 import { Child01Component } from "./components/child01/child01.component";
 import { Child02Component } from "./components/child02/child02.component";
+import { ConfigRoutes } from "@bingo/partner";
 
 const routes:Routes = [
+    ...ConfigRoutes["PluginRoutes.WithChildOverride"],
     {
       path: "",
       component: ContainerComponent,
