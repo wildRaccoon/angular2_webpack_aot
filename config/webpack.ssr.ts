@@ -20,11 +20,16 @@ export = function(env:any): Configuration
     console.log(env);
 
     var tsconfigPath = require(root("tsconfig.server.json")).compilerOptions.paths;
+    var replacementPath:{ [path:string]:string } = {
+        "src/config/env.ts":"src/config/env.prod.ts"
+    };
 
     if(env.partner)
     {
         tsconfigPath["@bingo/partner"] = [ "src/partner/index.ts" ];
         tsconfigPath["@bingo/partner/*"] = [ "src/partner/*" ];
+
+        replacementPath["src/modules/withchildrens/routes.ts"]="src/partner/modules/partner_withchild/routes.ts";
     }
 
 
@@ -91,9 +96,7 @@ export = function(env:any): Configuration
                 compilerOptions:{
                     "paths":tsconfigPath
                 },
-                hostReplacementPaths:{
-                    "env":"env.prod"
-                },
+                hostReplacementPaths:replacementPath,
                 nameLazyFiles:true,
                 platform: PLATFORM.Server
             })
