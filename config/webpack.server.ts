@@ -46,9 +46,10 @@ export = function(env:any): Configuration
 
         target: 'node',
         mode: 'none',
+        devtool: 'source-map',
 
         // this makes sure we include node_modules and other 3rd party libraries
-        //externals: [/node_modules/],
+        externals: [/node_modules/],
 
         output:{
             libraryTarget: 'commonjs',
