@@ -6,7 +6,9 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --config ./config/webpack.ts --progress",
     "debug": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.ts --progress",
-    "build.ssr": "./node_modules/.bin/webpack --config ./config/webpack.ssr.ts --progress"
+    "build:ssr": "./node_modules/.bin/webpack --config ./config/webpack.ssr.ts --progress",
+    "build:server": "./node_modules/.bin/webpack --config ./config/webpack.server.ts --progress",
+    "build:all": "npm run build && npm run build:ssr && npm run build:server"
   },
   "author": "aaaa",
   "license": "ISC",
@@ -25,6 +27,7 @@
     "@types/node": "^10.5.7",
     "@types/vinyl-fs": "^2.4.9",
     "@types/webpack": "^4.4.9",
+    "aspnet-prerendering": "^3.0.1",
     "barrelsby": "0.0.8",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
@@ -69,6 +72,7 @@
     "@angular/upgrade": "^6.1.3",
     "core-js": "^2.5.7",
     "enhanced-resolve": "^4.1.0",
+    "outdated": "^0.1.1",
     "rxjs": "^6.2.2",
     "zone.js": "^0.8.26"
   }

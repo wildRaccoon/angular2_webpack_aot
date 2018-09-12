@@ -35,8 +35,6 @@ export = function(env:any): Configuration
 
     var common: Configuration = 
     {
-        mode:"development",
-
         devtool: 'eval-source-map',
 
         entry:{
@@ -86,8 +84,8 @@ export = function(env:any): Configuration
         },
 
         target:"node",
-        node:false,
-
+        mode:"none",
+        
         plugins:[
             new AngularCompilerPlugin({
                 tsConfigPath: root("tsconfig.server.json"),
