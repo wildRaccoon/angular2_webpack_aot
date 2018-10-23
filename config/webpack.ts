@@ -45,16 +45,6 @@ export = function(env:any): Configuration
 
         entry:{
             'vendor': [
-                '@angular/common',
-                '@angular/compiler',
-                '@angular/core',
-                '@angular/forms',
-                '@angular/http',
-                '@angular/platform-browser',
-                '@angular/platform-browser-dynamic',
-                '@angular/router',
-                '@angular/upgrade',
-                'rxjs',
                 'jquery/dist/jquery.min.js'
             ],
             'polyfills': [
@@ -107,6 +97,15 @@ export = function(env:any): Configuration
         },
 
         optimization:{
+            splitChunks:{
+                cacheGroups: {
+                    commons: {
+                      test: /[\\/]node_modules[\\/]/,
+                      name: 'vendor',
+                      chunks: 'all'
+                    }
+                }
+            },
             removeEmptyChunks:true,
             mergeDuplicateChunks:true
         },
@@ -114,7 +113,7 @@ export = function(env:any): Configuration
         output:{
             path: root('dist/dev'),
             filename: '[name].js',
-            chunkFilename: '[name].chunk.js'
+            chunkFilename: '[id].js'
         },
 
         plugins:[
@@ -143,7 +142,7 @@ export = function(env:any): Configuration
             }),
 
             new ProvidePlugin({
-                '$':          'jquery'
+                '$': 'jquery'
             }),
 
             new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client'))
