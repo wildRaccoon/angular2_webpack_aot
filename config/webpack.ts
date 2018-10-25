@@ -40,8 +40,7 @@ export = function(env:any): Configuration
     var common: Configuration = 
     {
         mode:"development",
-
-        devtool: 'nosources-source-map',
+        devtool: 'source-map',
 
         entry:{
             'vendor': [
@@ -56,7 +55,7 @@ export = function(env:any): Configuration
         },
 
         resolve:{
-            extensions: [".js", ".ts"]
+            extensions: [".ts",".js"]
         },
 
         module:{
@@ -125,7 +124,8 @@ export = function(env:any): Configuration
                     "paths":tsconfigPath
                 },
                 hostReplacementPaths:replacementPath,
-                nameLazyFiles:true
+                nameLazyFiles:true,
+                sourceMap:true
             }),
 
             new MiniCssExtractPlugin({
